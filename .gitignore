@@ -1,0 +1,25 @@
+# LaTeX build files
+build/
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.lof
+*.lot
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+*.synctex.gz
+*.spl
+
+# Editors and OS
+.DS_Store
+.vscode/
+.idea/
+
+# Local tooling
+.claude/

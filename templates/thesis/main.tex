@@ -1,0 +1,44 @@
+% WNE UW diploma thesis: wrapper document
+% Build with `make` in this directory (see README.md).
+
+\documentclass[12pt,a4paper,oneside]{report}
+\usepackage[english]{wne-thesis}        % use [polish] for a thesis written in Polish
+
+% Form of the thesis. Article form: front matter + journal-formatted article + supplement.
+% Traditional form: front matter + chapters. Comment out the next line for the traditional form.
+\newif\ifarticleform \articleformtrue
+
+\input{metadata}
+
+\begin{document}
+
+\maketitlepage
+\ifarticleform \declarations[article] \else \declarations \fi
+% \aideclaration{tool}{purpose}; leave both arguments empty if no AI tool was used.
+\aideclaration{[NAME OF TOOL]}{[PURPOSE]}
+\makeabstractpage
+\tableofcontents
+
+\ifarticleform
+  \articlecard
+  \includearticle{article/main-thesis.pdf}
+  \supplementcard
+  \input{supplement/literature}
+  \input{supplement/methodology}
+  \input{supplement/results}
+\else
+  \input{chapters/introduction}
+  \input{chapters/literature}
+  \input{chapters/data}
+  \input{chapters/methodology}
+  \input{chapters/results}
+  \input{chapters/conclusions}
+\fi
+
+\clearpage
+\addcontentsline{toc}{chapter}{\bibname}
+\bibliography{references}
+
+\makelists
+
+\end{document}

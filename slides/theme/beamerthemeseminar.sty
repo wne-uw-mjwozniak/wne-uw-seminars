@@ -1,0 +1,113 @@
+% beamerthemeseminar.sty
+% Minimal white Beamer theme shared by all decks in this repository.
+% Usage: \usetheme{seminar} with TEXINPUTS pointing at slides/theme/ (see Makefile / .latexmkrc).
+
+\ProvidesPackage{beamerthemeseminar}[2026/09/22 Minimal white seminar theme]
+
+\RequirePackage{tikz}
+
+% --- Colours ---------------------------------------------------------------
+\definecolor{semInk}{HTML}{1F2933}      % body text
+\definecolor{semAccent}{HTML}{0B4F8A}   % headings, bullets, links
+\definecolor{semMuted}{HTML}{6B7785}    % secondary text, footers
+\definecolor{semRule}{HTML}{D9DEE4}     % hairlines, box borders
+\definecolor{semTint}{HTML}{F3F6F9}     % box backgrounds
+\definecolor{semWarn}{HTML}{B4451F}     % deadlines, hard requirements
+
+\setbeamercolor{normal text}{fg=semInk,bg=white}
+\setbeamercolor{structure}{fg=semAccent}
+\setbeamercolor{alerted text}{fg=semWarn}
+\setbeamercolor{frametitle}{fg=semAccent,bg=white}
+\setbeamercolor{framesubtitle}{fg=semMuted,bg=white}
+\setbeamercolor{title}{fg=semAccent}
+\setbeamercolor{subtitle}{fg=semInk}
+\setbeamercolor{author}{fg=semInk}
+\setbeamercolor{institute}{fg=semMuted}
+\setbeamercolor{date}{fg=semMuted}
+\setbeamercolor{section in toc}{fg=semInk}
+\setbeamercolor{footline}{fg=semMuted,bg=white}
+\setbeamercolor{block title}{fg=semAccent,bg=semTint}
+\setbeamercolor{block body}{fg=semInk,bg=semTint}
+\setbeamercolor{block title alerted}{fg=semWarn,bg=semTint}
+\setbeamercolor{block body alerted}{fg=semInk,bg=semTint}
+\setbeamercolor{block title example}{fg=semAccent,bg=semTint}
+\setbeamercolor{block body example}{fg=semInk,bg=semTint}
+\setbeamercolor{itemize item}{fg=semAccent}
+\setbeamercolor{itemize subitem}{fg=semMuted}
+\setbeamercolor{enumerate item}{fg=semAccent}
+\setbeamercolor{enumerate subitem}{fg=semMuted}
+\setbeamercolor{description item}{fg=semAccent}
+
+% --- Fonts -----------------------------------------------------------------
+\setbeamerfont{title}{size=\LARGE,series=\bfseries}
+\setbeamerfont{subtitle}{size=\large}
+\setbeamerfont{author}{size=\normalsize}
+\setbeamerfont{institute}{size=\small}
+\setbeamerfont{date}{size=\small}
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\small}
+\setbeamerfont{block title}{size=\normalsize,series=\bfseries}
+\setbeamerfont{footline}{size=\scriptsize}
+\setbeamerfont{description item}{series=\bfseries}
+
+% --- Inner elements --------------------------------------------------------
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize item}{\raisebox{0.15ex}{\scriptsize$\blacksquare$}}
+\setbeamertemplate{itemize subitem}{--}
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{sections/subsections in toc}[sections numbered]
+\setbeamertemplate{blocks}[default]
+\setbeamersize{text margin left=9mm,text margin right=9mm}
+\setlength{\leftmargini}{1.3em}
+\setlength{\leftmarginii}{1.2em}
+
+% --- Frame title: title, optional subtitle, thin accent rule ---------------
+\setbeamertemplate{frametitle}{%
+  \vspace*{4mm}%
+  {\usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle\par}%
+  \ifx\insertframesubtitle\@empty\else
+    \vspace{0.6mm}%
+    {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\par}%
+  \fi
+  \vspace{1.6mm}%
+  {\color{semAccent}\rule{14mm}{1.2pt}}%
+  \vspace{-3.5mm}%
+}
+
+% --- Footline: short title left, frame number right ------------------------
+\setbeamertemplate{footline}{%
+  \leavevmode
+  \hbox to \paperwidth{%
+    \hspace{9mm}%
+    \usebeamerfont{footline}\usebeamercolor[fg]{footline}%
+    \insertshorttitle\ifx\insertsection\@empty\else\quad\textbar\quad\insertsection\fi\hfill\insertframenumber\,/\,\inserttotalframenumber
+    \hspace{9mm}%
+  }%
+  \vspace{3.5mm}%
+}
+
+% --- Title page ------------------------------------------------------------
+\setbeamertemplate{title page}{%
+  \vfill
+  {\color{semAccent}\rule{22mm}{2pt}}\par\vspace{5mm}
+  {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par}
+  \vspace{3mm}
+  {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}
+  \vspace{10mm}
+  {\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}
+  \vspace{1.5mm}
+  {\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par}
+  \vspace{1.5mm}
+  {\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}
+  \vfill
+}
+
+% --- Helpers ---------------------------------------------------------------
+% \src{...}: small muted source line at the bottom of a frame.
+\newcommand{\src}[1]{\vfill{\scriptsize\color{semMuted}Source: #1\par}}
+% \must{...}: highlight a hard requirement or deadline.
+\newcommand{\must}[1]{{\color{semWarn}\bfseries #1}}
+% \key{...}: accent-coloured emphasis.
+\newcommand{\key}[1]{{\color{semAccent}\bfseries #1}}
+% \muted{...}: secondary text.
+\newcommand{\muted}[1]{{\color{semMuted}#1}}

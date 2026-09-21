@@ -1,0 +1,680 @@
+% Seminar kick-off: introduction and rules
+% Build: `make slides` from the repository root (or `latexmk` in this directory).
+
+\documentclass[aspectratio=169,11pt,t]{beamer}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[sfdefault,scaled=0.95]{FiraSans}
+\usepackage[scaled=0.85]{FiraMono}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,calc}
+
+\usetheme{seminar}
+
+\hypersetup{colorlinks=true,urlcolor=semAccent,linkcolor=semInk}
+
+\title[Diploma seminar kick-off]{From Data to Decisions:\\ Machine Learning in Finance and Business}
+\subtitle{Bachelor's diploma seminar: introduction and rules}
+\author{Michał Woźniak}
+\institute{Faculty of Economic Sciences, University of Warsaw}
+\date{Academic year 2026/27}
+
+\newcommand{\repo}{\href{https://github.com/wne-uw-mjwozniak/wne-uw-seminars}{\texttt{github.com/wne-uw-mjwozniak/wne-uw-seminars}}}
+
+\begin{document}
+
+\begin{frame}[plain,noframenumbering]
+  \titlepage
+\end{frame}
+
+\begin{frame}{Agenda}
+  \tableofcontents
+\end{frame}
+
+% =============================================================================
+\section{The seminar}
+% =============================================================================
+
+\begin{frame}{What this seminar is for}
+  \framesubtitle{Course 2400-PL3SL339A \textbullet{} 3 ECTS per semester \textbullet{} pass/fail}
+  You write a bachelor's thesis that uses \key{modern quantitative methods} (machine learning,
+  statistical learning, econometrics) to answer a well-posed question in \key{finance or business}.
+
+  \bigskip
+  What I care about most:
+  \begin{itemize}
+    \item a research question that matters to someone, stated precisely,
+    \item rigorous validation: honest baselines, out-of-sample testing, robust conclusions,
+    \item results that anyone can reproduce from your repository,
+    \item a coherent story: \emph{question $\rightarrow$ data $\rightarrow$ model $\rightarrow$ decision or conclusion}.
+  \end{itemize}
+
+  \bigskip
+  \muted{Applying a method is the easy part. Interpreting and criticising the result is the thesis.}
+\end{frame}
+
+\begin{frame}{Thematic scope}
+  \framesubtitle{Deliberately broad: any topic with a sound question and a rigorous quantitative method}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+    \begin{itemize}
+      \item Comparing quantitative methods on a financial or business problem
+      \item Case studies: finance, insurance, e-commerce, logistics
+      \item Probabilistic modelling and forecasting
+    \end{itemize}
+    \column{0.48\textwidth}
+    \begin{itemize}
+      \item Risk measurement and uncertainty
+      \item Causal inference for business decisions and policy evaluation
+      \item ML beyond classic analytics: behavioural economics, public policy
+    \end{itemize}
+  \end{columns}
+
+  \bigskip
+  \begin{block}{Where I can help most}
+    The intersection of econometrics and machine learning: quantitative finance, risk modelling,
+    time-series forecasting, probabilistic methods, customer analytics. I combine academic research
+    with commercial projects in insurance, e-commerce and logistics.
+  \end{block}
+\end{frame}
+
+% =============================================================================
+\section{How we work}
+% =============================================================================
+
+\begin{frame}{Format: remote, one joint start, then your own track}
+  \begin{center}
+  \begin{tikzpicture}[
+      node distance=9mm,
+      stage/.style={draw=semRule,fill=semTint,rounded corners=2pt,minimum height=15mm,
+                   text width=36mm,align=center,font=\small},
+      arr/.style={-{Stealth[length=2.2mm]},semAccent,line width=0.9pt}]
+    \node[stage] (a) {\key{Joint kick-off}\\ rules, tooling, topics};
+    \node[stage,right=of a] (b) {\key{Topic and team}\\ concept note approved};
+    \node[stage,right=of b] (c) {\key{Individual track}\\ weekly status, kanban};
+    \draw[arr] (a) -- (b);
+    \draw[arr] (b) -- (c);
+  \end{tikzpicture}
+  \end{center}
+
+  \medskip
+  \begin{itemize}
+    \item All meetings are \key{remote, on Google Meet}. This is the preferred way to reach me.
+    \item After the kick-off we work individually or in project teams, not as a lecture group.
+    \item Joint sessions return at two points: \emph{research design} and \emph{interpreting results},
+          where you present and get feedback from the group.
+    \item Asynchronous questions go to \key{GitHub issues} in your project repository, so the
+          answer stays next to the work. University e-mail is for formal matters.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Weekly status and a kanban board}
+  \framesubtitle{Every project lives in a GitHub Project. The board is the single source of truth for progress.}
+  \begin{center}
+  \begin{tikzpicture}[
+      col/.style={draw=semRule,fill=semTint,rounded corners=2pt,minimum width=25mm,minimum height=27mm},
+      head/.style={font=\scriptsize\bfseries,text=semAccent},
+      card/.style={draw=semRule,fill=white,rounded corners=1pt,minimum width=21mm,minimum height=5mm,
+                   font=\tiny,text=semInk,inner sep=1pt}]
+    \foreach \i/\name in {0/Backlog,1/Ready,2/In progress,3/In review,4/Done} {
+      \node[col] (c\i) at (\i*2.75,0) {};
+      \node[head,anchor=north] at ($(c\i.north)+(0,-0.8mm)$) {\name};
+    }
+    \node[card] at ($(c0.north)+(0,-8mm)$)  {robustness checks};
+    \node[card] at ($(c0.north)+(0,-14.5mm)$) {write data chapter};
+    \node[card] at ($(c0.north)+(0,-21mm)$) {ES backtests};
+    \node[card] at ($(c1.north)+(0,-8mm)$)  {HAR-RV baseline};
+    \node[card] at ($(c1.north)+(0,-14.5mm)$) {rolling-window CV};
+    \node[card,draw=semAccent] at ($(c2.north)+(0,-8mm)$) {GARCH baseline};
+    \node[card] at ($(c3.north)+(0,-8mm)$)  {data pipeline PR};
+    \node[card] at ($(c4.north)+(0,-8mm)$)  {concept note};
+    \node[card] at ($(c4.north)+(0,-14.5mm)$) {repo + \texttt{uv} env};
+  \end{tikzpicture}
+  \end{center}
+
+  \begin{itemize}
+    \item \key{Every week: a status check-in.} What moved, what is blocked, what is next.
+    \item I read the board before we talk, so the call is about decisions, not reporting.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Kanban: the working rules}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.5\textwidth}
+    \textbf{Cards}
+    \begin{itemize}
+      \item One card = one GitHub issue = one piece of work you can finish in days, not weeks.
+      \item Each card states its \key{definition of done}: a figure, a table, a section, a passing test.
+      \item Writing is work too: chapters and sections are cards.
+    \end{itemize}
+    \column{0.46\textwidth}
+    \textbf{Flow}
+    \begin{itemize}
+      \item \key{Limit work in progress}: at most two cards \emph{In progress} per person.
+      \item Work happens on branches; a pull request linked to the issue moves the card to \emph{In review}.
+      \item I review there. Merged means \emph{Done}.
+      \item \must{No movement on the board for weeks is the main risk signal} for passing the semester.
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{The toolchain is part of the course}
+  \framesubtitle{These are learning outcomes in the syllabus, not preferences}
+  \begin{description}[\quad Environment]
+    \item[Writing] \must{LaTeX only} (Overleaf or a local TeX distribution); bibliography in BibTeX.
+    \item[Versioning] Everything in \key{git}, hosted on GitHub: thesis sources and analysis code,
+          with a readable commit history.
+    \item[Language] \key{Python} preferred; R accepted.
+    \item[Environment] Python: \texttt{uv} with \texttt{pyproject.toml}. R: \texttt{renv}.
+    \item[Standard] \must{Reproducibility}: anyone with access to the repository can recreate your
+          results without contacting you.
+  \end{description}
+
+  \bigskip
+  \muted{New to some of these? That is expected. The first weeks include time to set them up, and
+  the seminar repository has a thesis template and links to get started.}
+\end{frame}
+
+\begin{frame}[fragile]{What your project repository should look like}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.44\textwidth}
+\begin{semiverbatim}\footnotesize
+my-thesis/
+  README.md       \muted{how to reproduce}
+  pyproject.toml  \muted{uv environment}
+  uv.lock
+  data/           \muted{raw data, fetch script}
+  src/            \muted{reusable code}
+  experiments/    \muted{configs, run scripts}
+  results/        \muted{generated output}
+  paper/          \muted{LaTeX sources, .bib}
+\end{semiverbatim}
+    \column{0.53\textwidth}
+    \begin{itemize}
+      \item One command rebuilds the results; one command rebuilds the PDF.
+      \item Figures and tables are \key{generated by code}, never pasted by hand.
+      \item Fix random seeds; record data versions and download dates.
+      \item Data you cannot share: document how to obtain it and commit a small synthetic sample.
+      \item No secrets, API keys or personal data in git, ever.
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+% =============================================================================
+\section{Timeline and passing}
+% =============================================================================
+
+\begin{frame}{Indicative timeline}
+  \framesubtitle{Exact submission and defence dates follow the WNE academic calendar}
+  \begin{center}
+  \begin{tikzpicture}[x=1.44cm,
+      tick/.style={semMuted,line width=0.6pt},
+      lab/.style={font=\scriptsize,text=semMuted},
+      up/.style={font=\scriptsize,align=center,text width=23mm,anchor=south},
+      down/.style={font=\scriptsize,align=center,text width=23mm,anchor=north}]
+    \draw[semAccent,line width=1.4pt] (0,0) -- (3.55,0);
+    \draw[semAccent!45,line width=1.4pt] (3.55,0) -- (8.3,0);
+    \foreach \x/\m in {0/Oct,1/Nov,2/Dec,3/Jan,4/Feb,5/Mar,6/Apr,7/May,8/Jun} {
+      \draw[tick] (\x,0.1) -- (\x,-0.1);
+      \node[lab,anchor=north] at (\x,-0.12) {\m};
+    }
+    \node[up]   at (0,0.25)   {Kick-off, topic, team};
+    \node[down] at (1,-0.62)  {Concept note approved};
+    \node[up]   at (2,0.25)   {Data, repo, first baseline};
+    \node[down] at (3,-0.62)  {\must{Semester 1 pass}: outline, questions, literature started};
+    \node[up]   at (4.5,0.25) {Modelling and experiments};
+    \node[down] at (6,-0.62)  {Full draft; \must{topic submitted for approval}};
+    \node[up]   at (7,0.25)   {Draft read, revisions};
+    \node[down] at (8,-0.62)  {Submission and defence};
+  \end{tikzpicture}
+  \end{center}
+
+  \medskip
+  \begin{itemize}
+    \item Give me \key{time to read}: a full draft needs weeks, not days, before any deadline.
+    \item The schedule is tight only if modelling starts in spring. Start in December.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{What it takes to pass each semester}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+    \begin{block}{After semester 1}
+      \begin{itemize}
+        \item thesis outline in LaTeX,
+        \item data collected,
+        \item research questions and hypotheses,
+        \item literature review started,
+        \item git repository with thesis sources and analysis code.
+      \end{itemize}
+    \end{block}
+    \column{0.48\textwidth}
+    \begin{block}{After semester 2}
+      \begin{itemize}
+        \item literature review and modelling complete,
+        \item thesis ready for defence,
+        \item code reproduces all results from the repository,
+        \item for high-potential work: a draft of a scientific article.
+      \end{itemize}
+    \end{block}
+  \end{columns}
+
+  \bigskip
+  In both semesters: \must{documented progress} (commits, successive versions of the document)
+  and \must{active participation} in consultations and joint discussions.
+  \src{course syllabus, USOS 2400-PL3SL339A}
+\end{frame}
+
+\begin{frame}{Your topic must be formally approved}
+  \framesubtitle{Procedure of the WNE Teaching Council (Rada Dydaktyczna)}
+  \begin{enumerate}
+    \item We agree the topic together. I am responsible for checking that it fits your programme,
+          level of study and leading discipline.
+    \item I submit it to the Dean's Office during the last semester of the seminar,
+          \must{no later than 4 weeks before you plan to submit the thesis}.
+    \item The Teaching Council reviews the topic within 14 days. It may request changes,
+          after which the corrected topic is submitted again.
+    \item \must{A thesis without an approved topic cannot be entered into APD or defended.}
+  \end{enumerate}
+
+  \bigskip
+  \muted{In practice: we fix the final title early in spring, and we word it so the economic or
+  financial problem is visible in the title itself.}
+  \src{Komunikat nr 1/2025 of the Chair of the WNE Teaching Council, 20 May 2025}
+\end{frame}
+
+% =============================================================================
+\section{Faculty rules in brief}
+% =============================================================================
+
+\begin{frame}{What WNE expects from a bachelor's thesis}
+  \begin{itemize}
+    \item A \key{clearly defined research goal}; it may include a research hypothesis.
+    \item Evidence that you can do research using current Polish and international literature.
+    \item Research tools consistent with your programme, or going beyond it.
+    \item Either your own study, or an in-depth literature-based report. In this seminar we do
+          \key{empirical work}.
+    \item Traditional form: up to about \key{50 pages} (100,000 characters with spaces).
+          Concise beats long.
+    \item On a Polish-language programme the thesis may be written in \key{Polish or English}.
+    \item It may take the \key{traditional form or the form of a scientific article}.
+  \end{itemize}
+  \src{wne.uw.edu.pl \textrightarrow{} Student \textrightarrow{} Prace dyplomowe \textrightarrow{} Wytyczne dotyczące prac}
+\end{frame}
+
+\begin{frame}{The method must serve an economic or financial problem}
+  \framesubtitle{How the Teaching Council judges whether a topic fits the programme}
+  \footnotesize
+  \begin{tabular}{@{}>{\raggedright}p{0.24\textwidth}>{\raggedright\arraybackslash}p{0.72\textwidth}@{}}
+    \toprule
+    \textbf{Programmes} & \textbf{The thesis should} \\
+    \midrule
+    Economics \muted{(Committee 1)} &
+      analyse economic phenomena at micro or macro scale, build on economic theory or policy, and
+      pose a research problem grounded in the literature. \\
+    \addlinespace
+    Finance, accounting, quantitative finance \muted{(Committee 2)} &
+      address a genuine finance question (pricing, risk management, portfolio optimisation, \ldots).
+      Statistical, econometric and ML methods are welcome \emph{as long as they serve the financial
+      problem}; a generic ``business'' theme is not enough. \\
+    \addlinespace
+    Informatics and Econometrics, data science \muted{(Committee 3)} &
+      show independent, critical use of advanced quantitative methods, state the economic, social
+      or financial context, and interpret results in those terms. \\
+    \bottomrule
+  \end{tabular}
+
+  \medskip
+  \normalsize
+  \key{For us:} ``I benchmarked five models'' is not a topic. ``Which models forecast portfolio
+  tail risk reliably enough for capital decisions'' is.
+  \src{Komunikat nr 1/2026 of the Chair of the WNE Teaching Council, 23 March 2026}
+\end{frame}
+
+\begin{frame}{Formal requirements: the template handles most of them}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.5\textwidth}
+    \textbf{Required order}
+    \begin{enumerate}\small
+      \item Title page
+      \item Signed declarations: supervisor and author(s)
+      \item Abstract (max.\ 800 characters), keywords, Erasmus code, English title
+      \item Table of contents (max.\ three levels)
+      \item Main text
+      \item Bibliography
+      \item Lists: abbreviations, tables, figures, appendices
+    \end{enumerate}
+    \column{0.46\textwidth}
+    \textbf{Typesetting}
+    \begin{itemize}\small
+      \item Times-like font, 12 pt; line spacing 1.5
+      \item All margins 25 mm; page numbers bottom centre
+      \item Tables and figures numbered through the whole thesis, each with a title and a \key{source}
+      \item Citations as (Author, year); bibliography alphabetical, preferably \key{APA}
+    \end{itemize}
+  \end{columns}
+  \src{Załącznik B and Załącznik D to Resolution no.\ 7 of the WNE Teaching Council}
+\end{frame}
+
+\begin{frame}{From finished thesis to defence}
+  \begin{enumerate}
+    \item \key{Submit} the thesis file by e-mail to the Dean's Office; they open your entry in APD.
+    \item \key{Upload} a searchable PDF to APD with the English title, abstract and keywords, then
+          send it for the supervisor's approval.
+    \item \key{Clear your accounts}: IT lab, WNE library, BUW, language and PE units.
+    \item \key{Anti-plagiarism check} in JSA, run by the supervisor; I accept the thesis after
+          reviewing the report.
+    \item A \key{reviewer} is appointed. Both reviews are uploaded to APD at least 3 days before
+          the defence.
+    \item One \key{printed copy}, double-sided, soft-bound, with the AI declaration, delivered no
+          later than 2 days before the exam.
+  \end{enumerate}
+  \medskip
+  \muted{For June and September defences the submission deadline is strict to the hour (12:00).}
+  \src{wne.uw.edu.pl \textrightarrow{} Prace dyplomowe \textrightarrow{} Składanie prac; Załącznik C}
+\end{frame}
+
+\begin{frame}{How the thesis is graded}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.56\textwidth}
+    \small
+    \begin{tabular}{@{}lp{0.78\textwidth}@{}}
+      \toprule
+      \textbf{5!} & outstanding: well beyond the programme, a real contribution to science \\
+      \textbf{5}  & very good: makes significant use of the programme's content, fully meets requirements \\
+      \textbf{4}  & good: moderate use of the programme's content \\
+      \textbf{3}  & weak: sufficient use, requirements partly met \\
+      \textbf{2}  & fail: substantive errors leading to wrong conclusions \\
+      \bottomrule
+    \end{tabular}
+    \column{0.4\textwidth}
+    \begin{itemize}
+      \item Supervisor and reviewer each score the thesis on the official review form;
+            half grades are allowed.
+      \item \key{Final grade = arithmetic mean} of the two.
+      \item The reviewer sees only the thesis. Everything that matters has to be on the page.
+    \end{itemize}
+  \end{columns}
+  \src{wne.uw.edu.pl \textrightarrow{} Prace dyplomowe \textrightarrow{} Ocena prac dyplomowych}
+\end{frame}
+
+% =============================================================================
+\section{Think bigger: articles and teams}
+% =============================================================================
+
+\begin{frame}{The thesis can be a scientific article}
+  \framesubtitle{This is the route I encourage for ambitious projects}
+  \begin{itemize}
+    \item The article has the structure typical for its field, about \key{10--12 thousand words},
+          formatted for a chosen journal.
+    \item A \key{supplement} is mandatory: literature review, methodology and results in more depth.
+          It guides the reviewer and documents your own contribution.
+    \item Article and supplement may be in different languages.
+    \item Publication before the defence is \key{not required}.
+    \item The supervisor may co-author the article; the supplement is the student's own work.
+  \end{itemize}
+
+  \smallskip
+  \begin{block}{Layout of an article-form thesis}
+    \small Title page \textrightarrow{} declarations \textrightarrow{} abstract page \textrightarrow{} contents
+    \textrightarrow{} ``Scientific article'' \textrightarrow{} article \textrightarrow{} ``Supplement''
+    \textrightarrow{} supplement \textrightarrow{} lists
+  \end{block}
+  \src{wne.uw.edu.pl \textrightarrow{} Prace w formie artykułów naukowych; Załącznik B, point 17}
+\end{frame}
+
+\begin{frame}{Co-authorship: what the rules allow}
+  \begin{center}
+  \begin{tabular}{@{}lccc@{}}
+    \toprule
+    \textbf{Form} & \textbf{Students} & \textbf{Each student} & \textbf{Supervisor} \\
+    \midrule
+    Traditional thesis   & 2 & exactly 50\%     & -- \\
+    Scientific article   & 1 & at least 60\%    & at most 40\% \\
+    Scientific article   & 2 & at least 40\%    & at most 20\% \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+
+  \medskip
+  \begin{itemize}
+    \item A thesis can have \must{at most two student authors}.
+    \item Every author declares their substantive and percentage contribution, chapter by chapter.
+    \item I must justify the co-authorship in my review.
+  \end{itemize}
+  \src{WNE thesis guidelines; declarations in Załącznik D}
+\end{frame}
+
+\begin{frame}{Larger projects, several theses, one paper}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.5\textwidth}
+    \textbf{The model}
+    \begin{itemize}
+      \item A research programme bigger than one thesis, split into \key{clearly separable parts}.
+      \item Each part is one thesis, by one student or a pair, with its own question and contribution.
+      \item Shared infrastructure: one repository or organisation, common data pipeline,
+            common evaluation protocol.
+      \item The parts combine into a \key{journal submission}.
+    \end{itemize}
+    \column{0.46\textwidth}
+    \textbf{Why bother}
+    \begin{itemize}
+      \item A stronger benchmark than any one person can build.
+      \item You learn to work the way research and industry teams do: issues, reviews, shared code.
+      \item A paper and a public repository are worth more on a CV than a grade.
+    \end{itemize}
+    \medskip
+    \muted{\small Authorship follows contribution, agreed and written down at the start of the project.}
+  \end{columns}
+\end{frame}
+
+% =============================================================================
+\section{AI tools and academic integrity}
+% =============================================================================
+
+\begin{frame}{AI tools: allowed, declared, and your responsibility}
+  \begin{block}{Faculty requirement}
+    Every thesis includes a signed \key{declaration on the use of AI systems}: which tool you used
+    and why, or that you used none. You confirm that you verified the content and take full
+    responsibility for the final thesis.
+  \end{block}
+
+  \medskip
+  \textbf{Working rules in this seminar}
+  \begin{itemize}
+    \item Use AI like a capable colleague: code, debugging, language, critique. Not to produce
+          the research idea, the interpretation or the conclusions.
+    \item \must{You must be able to explain every line of code and every sentence.} I will ask.
+    \item \must{Verify every reference.} Citing a paper that does not exist is a disqualifying error.
+    \item Keep a short log of what you used AI for; the declaration then writes itself.
+  \end{itemize}
+\end{frame}
+
+% =============================================================================
+\section{Topics}
+% =============================================================================
+
+\begin{frame}{How to propose a topic}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.46\textwidth}
+    \textbf{First message: three things}
+    \begin{enumerate}
+      \item A working title.
+      \item Two or three sentences: whose problem is it, what do they want to achieve, what is
+            missing today?
+      \item Confirmation that \key{the data exists} and you can get it.
+    \end{enumerate}
+    \medskip
+    Your own idea is welcome. So is joining one of the projects on the next slides.
+    \column{0.5\textwidth}
+    \textbf{Then: a two-page concept note}
+    \begin{enumerate}
+      \item The problem
+      \item Why it matters to an economist or a financial decision-maker
+      \item Research questions and hypotheses
+      \item Methods and data
+      \item Planned structure
+    \end{enumerate}
+    \medskip
+    \muted{The concept note later grows into your introduction. It is the first card on your board.}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Project 1: foundation models for market risk}
+  \framesubtitle{Task-specific heads on Chronos for volatility and tail-risk forecasting}
+  \textbf{Idea.} Chronos models are time-series foundation models pretrained on large, mostly
+  non-financial corpora. Keep the backbone and train lightweight \key{distributional or quantile
+  heads} on its representations to forecast volatility, Value-at-Risk and Expected Shortfall.
+
+  \smallskip
+  \begin{columns}[T,onlytextwidth]
+    \column{0.55\textwidth}
+    \textbf{Questions}
+    \begin{itemize}\small
+      \item Does generic pretraining transfer to heavy-tailed, volatility-clustered returns?
+      \item Zero-shot, new head on a frozen backbone, or fine-tuning: what is worth the compute?
+      \item Do forecasts pass regulatory-style backtests, not only win on average loss?
+    \end{itemize}
+    \column{0.41\textwidth}
+    \textbf{Benchmarks and evaluation}
+    \begin{itemize}\small
+      \item GARCH family, HAR-RV, quantile regression
+      \item VaR coverage and independence tests
+      \item joint VaR--ES scoring, model confidence sets
+    \end{itemize}
+  \end{columns}
+
+  \muted{\small Splits naturally: volatility $\mid$ VaR and ES $\mid$ asset classes $\mid$ fine-tuning strategies.}
+\end{frame}
+
+\begin{frame}{Project 2: detrending and deseasonalisation}
+  \framesubtitle{A review and benchmark: what to do about non-stationarity before modelling a time series}
+  \textbf{Idea.} Every forecasting pipeline makes a choice about trend and seasonality, usually by
+  habit. Build a \key{systematic review and a controlled benchmark} of these choices.
+
+  \medskip
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+    \textbf{Methods to map}
+    \begin{itemize}\small
+      \item differencing and transformations
+      \item filters: Hodrick--Prescott, Hamilton, band-pass
+      \item decompositions: STL, MSTL, X-13, TRAMO-SEATS
+      \item Fourier terms, wavelets, EMD, VMD
+      \item learned: RevIN, neural decomposition blocks
+    \end{itemize}
+    \column{0.48\textwidth}
+    \textbf{Questions}
+    \begin{itemize}\small
+      \item When does preprocessing help, and when does it destroy signal or leak the future?
+      \item Do ML, deep and foundation models still need it?
+      \item How do conclusions change across macro, financial and retail demand series?
+    \end{itemize}
+  \end{columns}
+
+  \medskip
+  \muted{\small Splits naturally: review and taxonomy $\mid$ benchmark on public datasets $\mid$ economic case study.}
+\end{frame}
+
+\begin{frame}{Project 3: foundation models for tabular data}
+  \framesubtitle{A review of pretrained models for tabular prediction, with economic applications}
+  \textbf{Idea.} Gradient-boosted trees have ruled tabular data for a decade. Pretrained
+  \key{tabular foundation models} (in-context learners such as the TabPFN line, LLM-based and
+  cross-table approaches) now challenge them. Review the field and test the claims where
+  economists need them.
+
+  \medskip
+  \textbf{Questions}
+  \begin{itemize}
+    \item In which regimes do they win: small samples, many categories, distribution shift?
+    \item Are the predicted probabilities \key{calibrated} well enough for pricing and credit decisions?
+    \item What about interpretability, cost and regulatory constraints in finance and insurance?
+  \end{itemize}
+
+  \smallskip
+  \textbf{Applications.} Credit scoring, insurance pricing, churn and customer value.
+
+  \smallskip
+  \muted{\small Splits naturally: literature review $\mid$ benchmark vs.\ boosting $\mid$ calibration and interpretability.}
+\end{frame}
+
+% =============================================================================
+\section{Writing standards}
+% =============================================================================
+
+\begin{frame}{The logic of a thesis}
+  \begin{center}
+  \begin{tikzpicture}[
+      node distance=7mm,
+      box/.style={draw=semRule,fill=semTint,rounded corners=2pt,minimum height=9mm,
+                  minimum width=26mm,font=\small},
+      arr/.style={-{Stealth[length=2.2mm]},semAccent,line width=0.9pt}]
+    \node[box] (p) {Problem};
+    \node[box,right=of p] (h) {Hypotheses};
+    \node[box,right=of h] (m) {Methods, data};
+    \node[box,right=of m] (s) {Structure};
+    \draw[arr] (p) -- (h); \draw[arr] (h) -- (m); \draw[arr] (m) -- (s);
+  \end{tikzpicture}
+  \end{center}
+
+  \begin{itemize}
+    \item Each step follows from the previous one. If a chapter does not help answer the
+          question, it does not belong.
+    \item \key{Introduction}: problem, why it matters, hypotheses, methods and data, structure.
+    \item \key{Every chapter}: what it does and why; the content; what was established and how it
+          leads to the next chapter.
+    \item \key{Data chapter}: how the data was generated and collected, exact meaning of variables,
+          descriptive statistics, and what this implies for modelling.
+    \item \key{Conclusions}: your results, limitations, practical use, future work.
+    \item \key{Abstract}: understandable to someone who will never read the thesis.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Style: a professional document, not literature}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+    \textbf{Text}
+    \begin{itemize}
+      \item Short sentences, precise words. No metaphors, no ``some'', ``many'', ``appropriate''.
+      \item Claims need evidence: a citation or your own result. ``It is well known'' is neither.
+      \item Cite what is relevant to \emph{your} question, not everything the paper says.
+      \item Draw only the conclusions your results support. State limitations plainly.
+    \end{itemize}
+    \column{0.48\textwidth}
+    \textbf{Figures and tables}
+    \begin{itemize}
+      \item Every one is referenced by number and \key{interpreted in the text}.
+      \item The caption says what the reader should see, and the source is always given.
+      \item Readable at print size; consistent notation, units and model names throughout.
+      \item No screenshots of code or output. Tables are typeset, plots are vector graphics.
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+% =============================================================================
+\section{Next steps}
+% =============================================================================
+
+\begin{frame}{Before our next meeting}
+  \begin{enumerate}
+    \item Create a GitHub account (if you do not have one) and send me your username.
+    \item Read this deck and the \texttt{docs/} folder in the seminar repository.
+    \item Install the toolchain: git, a TeX distribution or Overleaf, \texttt{uv} or \texttt{renv}.
+    \item Build the \key{thesis template} from the repository once, to check that your setup works.
+    \item Send your topic proposal: title, two or three sentences, data confirmation.
+          Say whether you want to work alone, in a pair, or join a larger project.
+    \item Book your weekly status slot on Google Meet.
+  \end{enumerate}
+
+  \bigskip
+  \begin{block}{Everything is in one place}
+    \centering\repo
+  \end{block}
+\end{frame}
+
+\end{document}

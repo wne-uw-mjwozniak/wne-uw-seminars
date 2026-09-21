@@ -1,0 +1,303 @@
+% wne-thesis.sty
+% Formatting and front matter for diploma theses at the Faculty of Economic Sciences,
+% University of Warsaw (WNE UW), following Załącznik B (formal requirements) and
+% Załącznik D (required layout) to Resolution no. 7 of the WNE Teaching Council.
+%
+% Options:
+%   english (default)  thesis written in English
+%   polish             thesis written in Polish
+%
+% The Polish wording of the declarations is quoted from Załącznik D. The English wording is an
+% unofficial translation: confirm the current official forms with the Dean's Office before you submit.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{wne-thesis}[2026/09/22 WNE UW diploma thesis layout]
+
+\newif\ifwne@polish \wne@polishfalse
+\DeclareOption{polish}{\wne@polishtrue}
+\DeclareOption{english}{\wne@polishfalse}
+\ProcessOptions\relax
+
+% --- Encoding, language, fonts (Załącznik B, point 2: Times-like, 12 pt) ---
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\ifwne@polish
+  \RequirePackage[english,polish]{babel}
+\else
+  \RequirePackage[polish,english]{babel}
+\fi
+\RequirePackage{newtxtext,newtxmath}
+\RequirePackage{microtype}
+
+% --- Page layout (points 4-6) ------------------------------------------------
+\RequirePackage[a4paper,margin=25mm,footskip=12mm]{geometry}
+\RequirePackage{setspace}
+\onehalfspacing
+\RequirePackage{indentfirst}
+\setlength{\parindent}{1cm}
+\pagestyle{plain}                       % page number bottom centre, on every sheet
+
+% --- Headings (point 9): bold, flush left, chapters on a new page ------------
+\RequirePackage{titlesec}
+\titleformat{\chapter}[hang]{\normalfont\large\bfseries\singlespacing}{\thechapter.}{0.6em}{}
+\titlespacing*{\chapter}{0pt}{0pt}{1.5\baselineskip}
+\titleformat{\section}{\normalfont\normalsize\bfseries\singlespacing}{\thesection.}{0.6em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries\singlespacing}{\thesubsection.}{0.6em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries\singlespacing}{\thesubsubsection.}{0.6em}{}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}                % at most three levels below the chapter
+
+% --- Tables and figures (points 10-11) ---------------------------------------
+\RequirePackage{graphicx}
+\RequirePackage{booktabs}
+\RequirePackage{float}
+\RequirePackage[font={stretch=1},labelfont=bf,labelsep=period,
+                justification=justified,singlelinecheck=false]{caption}
+\RequirePackage{chngcntr}
+\counterwithout{table}{chapter}         % numbered 1..N through the whole thesis
+\counterwithout{figure}{chapter}
+\counterwithout{equation}{chapter}
+\counterwithout{footnote}{chapter}      % point 8: continuous footnote numbering
+% \source{...}: 10 pt source line placed under every table and figure.
+\newcommand{\source}[1]{\par\vspace{0.4\baselineskip}%
+  {\footnotesize\singlespacing\raggedright\textit{\wne@source:} #1\par}}
+
+% --- Citations and bibliography (points 13-14): (Author, year), APA-like -----
+\RequirePackage[round,authoryear]{natbib}
+\bibliographystyle{apalike}
+\setlength{\bibsep}{\baselineskip}
+\renewcommand{\bibfont}{\singlespacing}
+
+\RequirePackage{pdfpages}
+\RequirePackage[hidelinks,unicode]{hyperref}
+
+% --- Metadata ----------------------------------------------------------------
+\newcommand{\thesistitle}[1]{\def\wne@title{#1}}
+\newcommand{\thesistitlealt}[1]{\def\wne@titlealt{#1}}     % title in the other language
+\newcommand{\thesisauthor}[1]{\def\wne@author{#1}}
+\newcommand{\albumnumber}[1]{\def\wne@album{#1}}
+\newcommand{\thesiskind}[1]{\def\wne@kind{#1}}             % e.g. Bachelor's thesis / Praca licencjacka
+\newcommand{\fieldofstudy}[1]{\def\wne@field{#1}}
+\newcommand{\supervisor}[1]{\def\wne@supervisor{#1}}
+\newcommand{\department}[1]{\def\wne@department{#1}}
+\newcommand{\thesisdate}[1]{\def\wne@date{#1}}             % e.g. Warsaw, June 2027
+\newcommand{\thesisabstract}[1]{\long\def\wne@abstract{#1}} % max. 800 characters with spaces
+\newcommand{\thesiskeywords}[1]{\def\wne@keywords{#1}}     % max. 10 words, lower case
+\newcommand{\thesiskeywordspl}[1]{\def\wne@keywordspl{#1}} % Polish keywords (English theses only)
+\newcommand{\erasmuscode}[1]{\def\wne@erasmus{#1}}
+\newcommand{\subjectclassification}[1]{\def\wne@classification{#1}}
+\def\wne@erasmus{Ekonomia (14300)}
+\def\wne@classification{}
+\def\wne@keywordspl{}
+
+% --- Localised strings -------------------------------------------------------
+\ifwne@polish
+  \def\wne@source{Źródło}
+  \def\wne@university{Uniwersytet Warszawski}
+  \def\wne@faculty{Wydział Nauk Ekonomicznych}
+  \def\wne@albumlabel{Nr albumu}
+  \def\wne@fieldlabel{na kierunku}
+  \def\wne@supervisedby{Praca wykonana pod kierunkiem}
+  \def\wne@abstractname{Streszczenie}
+  \def\wne@keywordsname{Słowa kluczowe}
+  \def\wne@erasmusname{Dziedzina pracy (kody wg programu Erasmus)}
+  \def\wne@classname{Klasyfikacja tematyczna}
+  \def\wne@alttitlename{Tytuł pracy w języku angielskim}
+  \def\wne@articlecard{Artykuł naukowy}
+  \def\wne@supplementcard{Suplement}
+  \def\wne@listsname{Zestawienie spisów}
+\else
+  \def\wne@source{Source}
+  \def\wne@university{University of Warsaw}
+  \def\wne@faculty{Faculty of Economic Sciences}
+  \def\wne@albumlabel{Student's book no.}
+  \def\wne@fieldlabel{in the field of}
+  \def\wne@supervisedby{The thesis written under the supervision of}
+  \def\wne@abstractname{Abstract}
+  \def\wne@keywordsname{Keywords}
+  \def\wne@erasmusname{Area of study (codes according to the Erasmus programme)}
+  \def\wne@classname{Subject classification}
+  \def\wne@alttitlename{Tytuł pracy w języku polskim}
+  \def\wne@articlecard{Scientific article}
+  \def\wne@supplementcard{Supplement}
+  \def\wne@listsname{Lists}
+\fi
+
+% --- Title page (page 0, number not shown) -----------------------------------
+\newcommand{\maketitlepage}{%
+  \begin{titlepage}
+    \singlespacing\centering
+    {\large \wne@university\par}
+    \vspace{2mm}
+    {\large \wne@faculty\par}
+    \vspace{22mm}
+    {\large \wne@author\par}
+    \vspace{2mm}
+    {\wne@albumlabel: \wne@album\par}
+    \vspace{22mm}
+    {\LARGE\bfseries \wne@title\par}
+    \vspace{18mm}
+    {\wne@kind\par}
+    {\wne@fieldlabel: \wne@field\par}
+    \vfill
+    \hfill\begin{minipage}{0.55\textwidth}\raggedright
+      \wne@supervisedby\\
+      \wne@supervisor\\
+      \wne@department
+    \end{minipage}\par
+    \vspace{22mm}
+    {\wne@date\par}
+  \end{titlepage}
+  \setcounter{page}{1}%
+}
+
+% --- Declarations page -------------------------------------------------------
+% \declarations            traditional thesis
+% \declarations[article]   adds the statements on shares in the scientific article
+\newcommand{\wne@signature}[1]{%
+  \par\vspace{14mm}\noindent
+  \makebox[0.35\textwidth][l]{\wne@datelabel\ \dotfill}\hfill
+  \makebox[0.5\textwidth][l]{#1\ \dotfill}\par}
+
+\newcommand{\declarations}[1][]{%
+  \clearpage
+  \begingroup\singlespacing\setlength{\parindent}{0pt}\setlength{\parskip}{0.6\baselineskip}
+  \def\wne@mode{#1}\def\wne@articlemode{article}%
+  \ifwne@polish
+    \def\wne@datelabel{Data}%
+    {\bfseries Oświadczenie kierującego pracą\par}
+    Oświadczam, że niniejsza praca została przygotowana pod moim kierunkiem i stwierdzam, że
+    spełnia ona warunki do przedstawienia jej w postępowaniu o nadanie tytułu zawodowego.
+
+    \ifx\wne@mode\wne@articlemode
+      Oświadczam, że mój udział w artykule naukowym, który stanowi część pracy dyplomowej wynosi
+      \makebox[12mm]{\dotfill}\%, zaś suplement do pracy został napisany samodzielnie przez
+      dyplomanta(ów).
+    \fi
+    \wne@signature{Podpis kierującego pracą}
+
+    \vspace{10mm}
+    {\bfseries Oświadczenie autora pracy\par}
+    Świadom odpowiedzialności prawnej oświadczam, że niniejsza praca dyplomowa została napisana
+    przeze mnie samodzielnie i nie zawiera treści uzyskanych w sposób niezgodny z obowiązującymi
+    przepisami.
+
+    Oświadczam również, że przedstawiona praca nie była wcześniej przedmiotem procedur związanych
+    z uzyskaniem tytułu zawodowego w wyższej uczelni.
+
+    Oświadczam ponadto, że niniejsza wersja pracy jest identyczna z załączoną wersją elektroniczną.
+
+    \ifx\wne@mode\wne@articlemode
+      Oświadczam, że mój udział w artykule naukowym, który stanowi część pracy dyplomowej wynosi
+      \makebox[12mm]{\dotfill}\% (nie mniej niż 60\%), zaś suplement do pracy został napisany
+      przeze mnie.
+    \fi
+    \wne@signature{Podpis autora pracy}
+  \else
+    \def\wne@datelabel{Date}%
+    {\bfseries Declaration of the supervisor\par}
+    I declare that this thesis was prepared under my supervision and I confirm that it meets the
+    requirements for submission in the procedure for awarding a professional degree.
+
+    \ifx\wne@mode\wne@articlemode
+      I declare that my share in the scientific article which forms part of this thesis is
+      \makebox[12mm]{\dotfill}\%, and that the supplement was written independently by the
+      student(s).
+    \fi
+    \wne@signature{Signature of the supervisor}
+
+    \vspace{10mm}
+    {\bfseries Declaration of the author\par}
+    Aware of my legal responsibility, I declare that this thesis was written by me independently
+    and does not contain content obtained in a manner inconsistent with applicable regulations.
+
+    I also declare that this thesis has not previously been the subject of procedures for
+    obtaining a professional degree at a higher education institution.
+
+    Furthermore, I declare that this version of the thesis is identical to the attached
+    electronic version.
+
+    \ifx\wne@mode\wne@articlemode
+      I declare that my share in the scientific article which forms part of this thesis is
+      \makebox[12mm]{\dotfill}\% (not less than 60\%), and that the supplement was written by me.
+    \fi
+    \wne@signature{Signature of the author}
+  \fi
+  \endgroup
+}
+
+% --- Declaration on the use of AI systems ------------------------------------
+% \aideclaration{tool}{purpose}   or   \aideclaration{}{}  when no AI tool was used
+\newcommand{\aideclaration}[2]{%
+  \clearpage
+  \begingroup\singlespacing\setlength{\parindent}{0pt}\setlength{\parskip}{0.6\baselineskip}
+  \def\wne@tool{#1}%
+  \ifwne@polish
+    \def\wne@datelabel{Data}%
+    {\bfseries Oświadczenie o wykorzystaniu w pracy systemów sztucznej inteligencji (SI)\par}
+    \ifx\wne@tool\@empty
+      Podczas przygotowania tej pracy autor/autorzy nie użyli żadnego narzędzia SI.
+    \else
+      Podczas przygotowania tej pracy autor/autorzy użyli #1 w celu #2. Autor/autorzy pracy
+      dokonali weryfikacji treści i redakcji tekstu pracy zgodnie z jej założeniami, prezentują
+      własny wkład intelektualny i biorą pełną odpowiedzialność za ostateczną postać pracy.
+    \fi
+    \wne@signature{Podpis Autora / Autorów}
+  \else
+    \def\wne@datelabel{Date}%
+    {\bfseries Declaration on the use of artificial intelligence (AI) systems in the thesis\par}
+    \ifx\wne@tool\@empty
+      During the preparation of this thesis the author(s) did not use any AI tool.
+    \else
+      During the preparation of this thesis the author(s) used #1 in order to #2. The author(s)
+      verified the content and edited the text in line with the aims of the thesis, present their
+      own intellectual contribution and take full responsibility for the final form of the thesis.
+    \fi
+    \wne@signature{Signature of the author(s)}
+  \fi
+  \endgroup
+}
+
+% --- Abstract page -----------------------------------------------------------
+\newcommand{\wne@abshead}[1]{\par\vspace{9mm}{\centering\bfseries #1\par}\vspace{3mm}}
+\newcommand{\makeabstractpage}{%
+  \clearpage
+  \begingroup\singlespacing\setlength{\parindent}{0pt}
+  \wne@abshead{\wne@abstractname}
+  \wne@abstract\par
+  \wne@abshead{\wne@keywordsname}
+  {\centering \wne@keywords\par
+   \ifx\wne@keywordspl\@empty\else(\wne@keywordspl)\par\fi}
+  \wne@abshead{\wne@erasmusname}
+  {\centering \wne@erasmus\par}
+  \wne@abshead{\wne@classname}
+  {\centering \wne@classification\par}
+  \wne@abshead{\wne@alttitlename}
+  {\centering \wne@titlealt\par}
+  \endgroup
+  \clearpage
+}
+
+% --- Separator cards for article-form theses (Załącznik B, point 17) ---------
+\newcommand{\wne@card}[1]{\clearpage\phantomsection\addcontentsline{toc}{chapter}{#1}%
+  \vspace*{\fill}{\centering\Huge\bfseries #1\par}\vspace*{\fill}\clearpage}
+\newcommand{\articlecard}{\wne@card{\wne@articlecard}}
+\newcommand{\supplementcard}{\wne@card{\wne@supplementcard}}
+
+% \includearticle{file.pdf}: inserts the journal-formatted article, keeping the thesis page numbers.
+\newcommand{\includearticle}[1]{%
+  \IfFileExists{#1}{\includepdf[pages=-,pagecommand={\thispagestyle{plain}}]{#1}}{%
+    \begin{center}\itshape Article PDF not found (#1). Run \texttt{make} in the template
+    directory to build it first.\end{center}\clearpage}}
+
+% --- Lists at the end (point 15) ---------------------------------------------
+\newcommand{\makelists}{%
+  \clearpage
+  \begingroup\let\clearpage\relax
+  \listoftables
+  \vspace{10mm}
+  \listoffigures
+  \endgroup
+}
+
+\endinput

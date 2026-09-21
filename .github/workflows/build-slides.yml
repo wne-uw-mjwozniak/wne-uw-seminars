@@ -1,0 +1,26 @@
+name: Build slides
+
+on:
+  push:
+    branches: [main]
+    paths: ["slides/**", ".github/workflows/build-slides.yml"]
+  pull_request:
+    paths: ["slides/**"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile with latexmk
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: slides/01-introduction
+          root_file: main.tex
+          # .latexmkrc in that directory sets the theme path and the build/ output directory
+          args: -interaction=nonstopmode -halt-on-error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: seminar-introduction
+          path: slides/01-introduction/build/main.pdf
