@@ -1,19 +1,23 @@
 # Build everything in this repository. Requires TeX Live / MacTeX / MiKTeX with latexmk.
 
-SLIDES_DIR := slides/01-introduction
-SLIDES_PDF := $(SLIDES_DIR)/seminar-introduction.pdf
+# deck directory : name of the PDF committed next to the source
+DECKS := 01-introduction:seminar-introduction 02-research-process:research-process
 
 .PHONY: all slides template clean
 
 all: slides template
 
 slides:
-	cd $(SLIDES_DIR) && latexmk -interaction=nonstopmode -halt-on-error
-	cp $(SLIDES_DIR)/build/main.pdf $(SLIDES_PDF)
+	@for d in $(DECKS); do \
+	  dir=slides/$${d%%:*}; pdf=$${d##*:}.pdf; \
+	  echo "Building $$dir -> $$pdf"; \
+	  (cd $$dir && latexmk -interaction=nonstopmode -halt-on-error) || exit 1; \
+	  cp $$dir/build/main.pdf $$dir/$$pdf; \
+	done
 
 template:
 	$(MAKE) -C templates/thesis
 
 clean:
-	cd $(SLIDES_DIR) && latexmk -C && rm -rf build
+	@for d in $(DECKS); do (cd slides/$${d%%:*} && latexmk -C && rm -rf build); done
 	$(MAKE) -C templates/thesis clean

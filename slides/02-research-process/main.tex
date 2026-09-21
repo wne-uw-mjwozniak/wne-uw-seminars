@@ -1,0 +1,409 @@
+% From idea to article: how a research paper gets made
+% Build: `make slides` from the repository root (or `latexmk` in this directory).
+
+\documentclass[aspectratio=169,11pt,t]{beamer}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[sfdefault,scaled=0.95]{FiraSans}
+\usepackage[scaled=0.85]{FiraMono}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,calc}
+
+\usetheme{seminar}
+
+\hypersetup{colorlinks=true,urlcolor=semAccent,linkcolor=semInk}
+
+\title[From idea to article]{From Idea to Article:\\ How a Research Paper Gets Made}
+\subtitle{A first-timer's guide to doing and writing research}
+\author{Michał Woźniak}
+\institute{Faculty of Economic Sciences, University of Warsaw}
+\date{Diploma seminar, academic year 2026/27}
+
+\begin{document}
+
+\begin{frame}[plain,noframenumbering]
+  \titlepage
+\end{frame}
+
+\begin{frame}{Agenda}
+  \tableofcontents
+\end{frame}
+
+% =============================================================================
+\section{The process}
+% =============================================================================
+
+\begin{frame}{Research is a loop, not a line}
+  \begin{center}
+  \begin{tikzpicture}[
+      node distance=3.5mm,
+      stage/.style={draw=semRule,fill=semTint,rounded corners=2pt,minimum height=11mm,
+                    text width=17mm,align=center,font=\scriptsize},
+      arr/.style={-{Stealth[length=2mm]},semAccent,line width=0.9pt}]
+    \node[stage] (a) {\key{Read}};
+    \node[stage,right=of a] (b) {\key{Question}\\ and gap};
+    \node[stage,right=of b] (c) {\key{Design}\\ data, method};
+    \node[stage,right=of c] (d) {\key{Experiment}};
+    \node[stage,right=of d] (e) {\key{Write}};
+    \node[stage,right=of e] (f) {\key{Review}\\ and revise};
+    \foreach \x/\y in {a/b,b/c,c/d,d/e,e/f} \draw[arr] (\x) -- (\y);
+    \draw[arr,semMuted,dashed] (f.south) -- ++(0,-6mm) -| (b.south);
+    \node[font=\scriptsize,text=semMuted] at ($(d.south)+(0,-8.5mm)$) {results change the question; writing exposes gaps in the design};
+  \end{tikzpicture}
+  \end{center}
+
+  \medskip
+  \begin{itemize}
+    \item You will go around the loop several times. That is normal, not a sign of failure.
+    \item \key{Reading never stops}; it only changes purpose: first to find a question, later to
+          position your result.
+    \item \key{Writing starts on day one.} The concept note becomes the introduction; method notes
+          become the methods section. Nobody ``writes up'' at the end.
+    \item The unit of progress is a \key{small, finished, reviewable piece}: one card on the board.
+  \end{itemize}
+\end{frame}
+
+% =============================================================================
+\section{Finding a question}
+% =============================================================================
+
+\begin{frame}{Where research ideas come from}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.5\textwidth}
+    \textbf{From the literature}
+    \begin{itemize}
+      \item Recent issues of the \key{top journals}: which questions are open right now?
+      \item ``Limitations'' and ``future research'' sections tell you what is missing.
+      \item \key{Survey papers}: a map of the field and its gaps.
+      \item Replicate, then extend: new data, market, period, or a stronger baseline.
+    \end{itemize}
+    \column{0.46\textwidth}
+    \textbf{From the world}
+    \begin{itemize}
+      \item A decision someone has to make: a risk limit, a price, a stock level.
+      \item A new method for an old problem; an old method failing on new data.
+      \item Competitions and benchmarks: M-competitions, Kaggle.
+    \end{itemize}
+  \end{columns}
+
+  \begin{block}{A good question is}
+    \small specific, connected to a literature, feasible with data you can get, interesting either way.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Finding papers and judging journals}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.47\textwidth}
+    \textbf{Search}
+    \begin{itemize}
+      \item \key{Google Scholar}: start here; use ``Cited by'' and ``Related articles''.
+      \item \key{Scopus, Web of Science}: through the University Library (BUW), also from home.
+      \item Semantic Scholar, Connected Papers: citation graphs.
+      \item Preprints: arXiv, SSRN, RePEc/IDEAS.
+      \item \key{Snowballing}: backwards through references, forwards through citations.
+    \end{itemize}
+    \column{0.5\textwidth}
+    \textbf{Is this journal any good?}
+    \begin{itemize}
+      \item Where are the papers \emph{you} cite published? That is your shortlist.
+      \item Rankings: Scimago (SJR quartiles), the Polish ministerial list of journals (points),
+            the ABS Academic Journal Guide.
+      \item Read the journal's \key{aims and scope} and skim two recent issues.
+      \item \must{Beware predatory journals}: unsolicited invitations, fees with no real review,
+            a scope that covers everything.
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Journals and venues close to this seminar}
+  \footnotesize
+  \begin{tabular}{@{}>{\raggedright}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.71\textwidth}@{}}
+    \toprule
+    \textbf{Area} & \textbf{Where to read, and later where to submit} \\
+    \midrule
+    Forecasting & International Journal of Forecasting; Journal of Forecasting \\
+    \addlinespace
+    Financial econometrics, risk & Journal of Financial Econometrics; Journal of Econometrics;
+      Quantitative Finance; Journal of Banking \& Finance; Insurance: Mathematics and Economics \\
+    \addlinespace
+    Applied ML and operations & European Journal of Operational Research; Expert Systems with
+      Applications; Decision Support Systems \\
+    \addlinespace
+    Machine learning & NeurIPS, ICML, ICLR (conferences); Journal of Machine Learning Research;
+      Transactions on Machine Learning Research \\
+    \addlinespace
+    Close to home & Central European Economic Journal (the journal of our faculty, open access);
+      WNE Working Papers \\
+    \bottomrule
+  \end{tabular}
+
+  \medskip
+  \normalsize
+  Pick a \key{target journal early}: it fixes format, length, audience and the standard of evidence.
+\end{frame}
+
+\begin{frame}{How to read a paper}
+  \framesubtitle{Three passes, each with a decision at the end (Keshav, 2007)}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.58\textwidth}
+    \begin{enumerate}
+      \item \key{Five minutes}: title, abstract, introduction, headings, conclusions.
+            \muted{Relevant? Most papers stop here.}
+      \item \key{An hour}: read properly, skip proofs; study figures and tables.
+            \muted{Can you state the main claim and its evidence?}
+      \item \key{Deep}: re-create the argument, question every assumption.
+            \muted{Only for the few papers you build on.}
+    \end{enumerate}
+    \column{0.38\textwidth}
+    \begin{block}{Keep a literature matrix}
+      \small One row per paper: question, data, method, result, limitation, relation to yours.
+      It grows into your literature review.
+    \end{block}
+    \smallskip
+    \small Reference manager from day one: \key{Zotero} with Better BibTeX exports to your \texttt{.bib}.
+  \end{columns}
+\end{frame}
+
+% =============================================================================
+\section{Writing the article}
+% =============================================================================
+
+\begin{frame}{Anatomy of an empirical article}
+  \footnotesize
+  \begin{tabular}{@{}>{\raggedright\bfseries}p{0.2\textwidth}>{\raggedright}p{0.4\textwidth}>{\raggedright\arraybackslash}p{0.34\textwidth}@{}}
+    \toprule
+    Section & The question it answers & Typical mistake \\
+    \midrule
+    Introduction & What is the problem, why does it matter, what do you add? & A history of the field, no contribution \\
+    Literature review & What is known, and where is the gap? & Summaries, paper by paper \\
+    Data (materials) & What did you observe, and how was it prepared? & Undocumented cleaning \\
+    Methods & What did you do, precisely enough to repeat it? & Textbook chapter; no evaluation protocol \\
+    Results & What did you find? & Tables without interpretation \\
+    Discussion & What does it mean, and what are the limits? & Claiming more than was shown \\
+    Conclusions & What should the reader remember? & New material appearing here \\
+    \bottomrule
+  \end{tabular}
+
+  \smallskip
+  \small
+  Read most of all: \key{title, abstract, figures and tables}. Many readers see nothing else.
+\end{frame}
+
+\begin{frame}{The introduction: five moves}
+  \framesubtitle{It is the most-read section after the abstract. Write it to a formula (Head's ``introduction formula'').}
+  \begin{enumerate}
+    \item \key{Hook}: the real-world problem and why anyone should care.
+    \item \key{Question}: what this paper does, in one or two sentences. Be concrete.
+    \item \key{Antecedents}: the few closest papers you build on. Not the whole review.
+    \item \key{Value added}: what is new here, stated as findings. Numbers are welcome:
+          ``reduces the ES forecast loss by 8\% relative to GARCH''.
+    \item \key{Roadmap}: how the rest of the paper is organised.
+  \end{enumerate}
+
+  \bigskip
+  \begin{itemize}
+    \item Test: can you state the \key{one central contribution} in a single paragraph? If not,
+          the problem is the research, not the writing (Cochrane, \emph{Writing Tips for Ph.D.\ Students}).
+    \item The reader should know your main result by the end of page one.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Literature review, data, methods}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.32\textwidth}
+    \textbf{Literature review}
+    \begin{itemize}\small
+      \item Organise by \key{idea or strand}, never paper by paper.
+      \item Each strand ends with what it leaves open.
+      \item The final paragraph states the gap your paper fills.
+      \item Cite what you have read, at least to the second pass.
+    \end{itemize}
+    \column{0.32\textwidth}
+    \textbf{Data}
+    \begin{itemize}\small
+      \item Source, period, frequency, sample size, access date.
+      \item Every cleaning step and every exclusion, with counts.
+      \item Descriptive statistics and one honest plot.
+      \item What the data \emph{cannot} tell you.
+    \end{itemize}
+    \column{0.32\textwidth}
+    \textbf{Methods}
+    \begin{itemize}\small
+      \item Your models \emph{and} the \key{baselines}, treated with equal care.
+      \item The \key{evaluation protocol}: splits, windows, loss functions, tests.
+      \item Notation defined once; details that interrupt go to an appendix.
+      \item Enough to re-implement, with the repository as the final word.
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Results, discussion, conclusions}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.5\textwidth}
+    \textbf{Results: what you found}
+    \begin{itemize}
+      \item Follow the order of the research questions.
+      \item One message per table or figure, stated in the text.
+      \item Report \key{uncertainty}: are differences statistically meaningful
+            (e.g.\ Diebold--Mariano tests, model confidence sets)?
+      \item \key{Robustness}: other periods, losses, hyperparameters; ablations.
+      \item Report what did not work. It is a result.
+    \end{itemize}
+    \column{0.46\textwidth}
+    \textbf{Discussion and conclusions: what it means}
+    \begin{itemize}
+      \item Interpret in \key{economic terms}: what changes for the risk manager, the pricing
+            actuary, the planner?
+      \item Compare with earlier findings: agree, disagree, why?
+      \item \key{Limitations}, stated plainly, before a reviewer finds them.
+      \item Conclusions: the takeaway, its practical use, what to do next. No new results.
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{The order you write in is not the order they read in}
+  \begin{center}
+  \begin{tikzpicture}[
+      node distance=2.4mm,
+      stage/.style={draw=semRule,fill=semTint,rounded corners=2pt,minimum height=10mm,
+                    text width=15mm,align=center,font=\scriptsize},
+      arr/.style={-{Stealth[length=1.8mm]},semAccent,line width=0.8pt}]
+    \node[stage] (a) {\key{Figures and tables}};
+    \node[stage,right=of a] (b) {\key{Data, methods}};
+    \node[stage,right=of b] (c) {\key{Results}};
+    \node[stage,right=of c] (d) {\key{Discussion}};
+    \node[stage,right=of d] (e) {\key{Literature review}};
+    \node[stage,right=of e] (f) {\key{Introduction}};
+    \node[stage,right=of f] (g) {\key{Abstract, title}};
+    \foreach \x/\y in {a/b,b/c,c/d,d/e,e/f,f/g} \draw[arr] (\x) -- (\y);
+  \end{tikzpicture}
+  \end{center}
+
+  \medskip
+  \begin{itemize}
+    \item Start from the \key{exhibits}: if four figures and tables tell the story, the paper exists.
+    \item Methods and data can be drafted while experiments run. Keep them current.
+    \item The introduction and abstract are rewritten last, when you know what you found.
+    \item Draft fast, revise slowly. Expect \key{several full revisions}; the first draft is for you,
+          the later ones for the reader.
+    \item One idea per paragraph, the point in its first sentence.
+  \end{itemize}
+\end{frame}
+
+% =============================================================================
+\section{Doing it right}
+% =============================================================================
+
+\begin{frame}{Pitfalls that invalidate results in ML for finance}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.5\textwidth}
+    \begin{itemize}
+      \item \must{Look-ahead bias and leakage}: scaling or tuning that saw the test period.
+      \item \must{Random splits on time series}: use rolling or expanding windows.
+      \item \must{Peeking at the test set} until something works. Touch it once.
+      \item \key{Backtest overfitting}: try enough strategies and one shines by chance.
+    \end{itemize}
+    \column{0.46\textwidth}
+    \begin{itemize}
+      \item \key{Weak baselines}: an untuned GARCH or a default XGBoost proves nothing.
+      \item \key{Survivorship bias}: only assets or firms that still exist.
+      \item \key{One lucky seed}: report variation across seeds and windows.
+      \item \key{Metric mismatch}: a loss that ignores the decision.
+    \end{itemize}
+  \end{columns}
+
+  \begin{block}{Worth reading before your first experiment}
+    \footnotesize Kapoor \& Narayanan (2023), leakage and the reproducibility crisis, \emph{Patterns};
+    Lones (2024), avoiding common ML pitfalls, \emph{Patterns};
+    Bailey et al.\ (2014), backtest overfitting, \emph{Notices of the AMS};
+    Bergmeir \& Benítez (2012), cross-validation for time series, \emph{Information Sciences}.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Working habits that make the difference}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+    \textbf{Every day}
+    \begin{itemize}
+      \item A \key{research log}: date, what you tried, what happened, what you concluded.
+            A markdown file in the repository is enough.
+      \item Experiments driven by \key{configuration files}, results saved with the config and
+            the commit hash.
+      \item Write a little every week, even when ``there is nothing to write yet''.
+    \end{itemize}
+    \column{0.48\textwidth}
+    \textbf{When stuck}
+    \begin{itemize}
+      \item Ask early, and well: what you wanted, what you did, what happened, what you tried.
+      \item Shrink the problem: fewer series, a shorter period, one model.
+      \item Reproduce a published result first. It calibrates your pipeline and your expectations.
+    \end{itemize}
+  \end{columns}
+
+  \smallskip
+  \textbf{Integrity is not negotiable:} your own words, every source cited, no fabricated or
+  selectively reported results, AI use declared.
+\end{frame}
+
+% =============================================================================
+\section{From draft to publication}
+% =============================================================================
+
+\begin{frame}{What happens after the draft}
+  \begin{center}
+  \begin{tikzpicture}[
+      node distance=3.2mm,
+      stage/.style={draw=semRule,fill=semTint,rounded corners=2pt,minimum height=11mm,
+                    text width=17.5mm,align=center,font=\scriptsize},
+      arr/.style={-{Stealth[length=2mm]},semAccent,line width=0.9pt}]
+    \node[stage] (a) {\key{Internal review}\\ supervisor, peers};
+    \node[stage,right=of a] (b) {\key{Preprint}\\ arXiv, SSRN};
+    \node[stage,right=of b] (c) {\key{Submission}\\ one journal at a time};
+    \node[stage,right=of c] (d) {\key{Editor}\\ desk reject or review};
+    \node[stage,right=of d] (e) {\key{Referee reports}\\ revise and resubmit};
+    \node[stage,right=of e] (f) {\key{Accepted}};
+    \foreach \x/\y in {a/b,b/c,c/d,d/e,e/f} \draw[arr] (\x) -- (\y);
+  \end{tikzpicture}
+  \end{center}
+
+  \medskip
+  \begin{itemize}
+    \item Peer review takes \key{months per round}. Rejection is the most common outcome at good
+          journals; you revise and submit elsewhere.
+    \item A revision comes with a \key{response letter}: every comment quoted and answered.
+    \item \key{Your thesis does not wait for this.} Publication is not required before the defence.
+    \item Conferences and seminars are where you test the paper before referees do.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{First-timer's checklist}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+    \textbf{This month}
+    \begin{enumerate}
+      \item Install Zotero; start your literature matrix.
+      \item Skim the last two years of one target journal.
+      \item Read three papers to pass two, one to pass three.
+      \item Start the research log in your repository.
+      \item Draft the two-page concept note.
+    \end{enumerate}
+    \column{0.48\textwidth}
+    \textbf{Before the first experiment}
+    \begin{enumerate}
+      \item Write down the evaluation protocol; freeze the test period.
+      \item Implement and tune the baselines first.
+      \item Reproduce one published number.
+      \item Sketch the tables and figures you expect to need.
+    \end{enumerate}
+  \end{columns}
+
+  \smallskip
+  \muted{\small More in the repository: \texttt{docs/research-onboarding.md} (reading list, data sources, tools, glossary).}
+\end{frame}
+
+\end{document}

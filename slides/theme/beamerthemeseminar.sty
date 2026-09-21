@@ -6,13 +6,14 @@
 
 \RequirePackage{tikz}
 
-% --- Colours ---------------------------------------------------------------
-\definecolor{semInk}{HTML}{1F2933}      % body text
-\definecolor{semAccent}{HTML}{0B4F8A}   % headings, bullets, links
-\definecolor{semMuted}{HTML}{6B7785}    % secondary text, footers
-\definecolor{semRule}{HTML}{D9DEE4}     % hairlines, box borders
-\definecolor{semTint}{HTML}{F3F6F9}     % box backgrounds
-\definecolor{semWarn}{HTML}{B4451F}     % deadlines, hard requirements
+% --- Colours: WNE UW identity (crimson logo mark, black and grey type) --------
+\definecolor{semAccent}{HTML}{A9233E}   % WNE crimson, sampled from the faculty logo
+\definecolor{semInk}{HTML}{2B2B2B}      % body text
+\definecolor{semKey}{HTML}{000000}      % key terms (bold black, as in the logo type)
+\definecolor{semMuted}{HTML}{767676}    % secondary text, footers (logo grey, darkened for contrast)
+\definecolor{semRule}{HTML}{D6D6D6}     % hairlines, box borders
+\definecolor{semTint}{HTML}{F4F4F4}     % box backgrounds (website light grey)
+\definecolor{semWarn}{HTML}{A9233E}     % deadlines, hard requirements
 
 \setbeamercolor{normal text}{fg=semInk,bg=white}
 \setbeamercolor{structure}{fg=semAccent}
@@ -107,7 +108,7 @@
 \newcommand{\src}[1]{\vfill{\scriptsize\color{semMuted}Source: #1\par}}
 % \must{...}: highlight a hard requirement or deadline.
 \newcommand{\must}[1]{{\color{semWarn}\bfseries #1}}
-% \key{...}: accent-coloured emphasis.
-\newcommand{\key}[1]{{\color{semAccent}\bfseries #1}}
+% \key{...}: bold black emphasis for key terms.
+\newcommand{\key}[1]{{\color{semKey}\bfseries #1}}
 % \muted{...}: secondary text.
 \newcommand{\muted}[1]{{\color{semMuted}#1}}

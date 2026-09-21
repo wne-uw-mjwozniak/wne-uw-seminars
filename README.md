@@ -3,19 +3,22 @@
 Materials for the bachelor's diploma seminar (course `2400-PL3SL339A`) at the Faculty of Economic
 Sciences, University of Warsaw (WNE UW), academic year 2026/27. Supervisor: Michał Woźniak.
 
-Start with the [kick-off slides](slides/01-introduction/seminar-introduction.pdf), then read the
-documents in [`docs/`](docs/).
+Start with the [kick-off slides](slides/01-introduction/seminar-introduction.pdf), continue with
+[From Idea to Article](slides/02-research-process/research-process.pdf), then read the documents in
+[`docs/`](docs/).
 
 ## What is here
 
 | Path | Contents |
 | --- | --- |
 | [`slides/01-introduction/`](slides/01-introduction/) | Kick-off presentation: how the seminar works, faculty rules, topics. PDF and LaTeX source. |
+| [`slides/02-research-process/`](slides/02-research-process/) | How a research paper gets made: finding a question, journals, reading, writing each section, pitfalls, peer review. |
 | [`slides/theme/`](slides/theme/) | Shared Beamer theme used by all decks. |
 | [`docs/seminar-rules.md`](docs/seminar-rules.md) | How we work: meetings, passing criteria, toolchain, AI tools. |
 | [`docs/kanban-workflow.md`](docs/kanban-workflow.md) | Weekly status and the GitHub Projects board, step by step. |
 | [`docs/wne-thesis-rules.md`](docs/wne-thesis-rules.md) | Faculty rules in brief, with links to the official sources. |
 | [`docs/research-topics.md`](docs/research-topics.md) | Open research projects you can join, with starting literature. |
+| [`docs/research-onboarding.md`](docs/research-onboarding.md) | For first-time researchers: reading list on the craft, data sources, tools, glossary. |
 | [`docs/resources.md`](docs/resources.md) | Links for LaTeX, git, `uv`, `renv` and the WNE pages. |
 | [`templates/thesis/`](templates/thesis/) | LaTeX thesis template: `elsarticle` article plus a WNE-compliant wrapper. |
 
@@ -35,7 +38,7 @@ documents in [`docs/`](docs/).
 Requires TeX Live (or MacTeX / MiKTeX) with `latexmk`.
 
 ```sh
-make slides      # builds slides/01-introduction/seminar-introduction.pdf
+make slides      # builds every deck in slides/ and copies the PDF next to its source
 make template    # builds the example thesis in templates/thesis/
 make clean
 ```

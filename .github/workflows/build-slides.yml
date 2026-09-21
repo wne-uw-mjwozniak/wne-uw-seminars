@@ -11,16 +11,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        deck: [01-introduction, 02-research-process]
     steps:
       - uses: actions/checkout@v4
       - name: Compile with latexmk
         uses: xu-cheng/latex-action@v3
         with:
-          working_directory: slides/01-introduction
+          working_directory: slides/${{ matrix.deck }}
           root_file: main.tex
           # .latexmkrc in that directory sets the theme path and the build/ output directory
           args: -interaction=nonstopmode -halt-on-error
       - uses: actions/upload-artifact@v4
         with:
-          name: seminar-introduction
-          path: slides/01-introduction/build/main.pdf
+          name: slides-${{ matrix.deck }}
+          path: slides/${{ matrix.deck }}/build/main.pdf
