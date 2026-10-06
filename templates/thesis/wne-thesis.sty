@@ -7,7 +7,8 @@
 %   english (default)  thesis written in English
 %   polish             thesis written in Polish
 %
-% The Polish wording of the declarations is quoted from Załącznik D. The English wording is an
+% Single-author Polish declarations follow Załącznik D; pair declarations adapt its wording
+% to the co-authorship rules. The English wording is an
 % unofficial translation: confirm the current official forms with the Dean's Office before you submit.
 
 \NeedsTeXFormat{LaTeX2e}
@@ -39,7 +40,7 @@
 
 % --- Headings (point 9): bold, flush left, chapters on a new page ------------
 \RequirePackage{titlesec}
-\titleformat{\chapter}[hang]{\normalfont\large\bfseries\singlespacing}{\thechapter.}{0.6em}{}
+\titleformat{\chapter}[hang]{\normalfont\normalsize\bfseries\singlespacing}{\thechapter.}{0.6em}{}
 \titlespacing*{\chapter}{0pt}{0pt}{1.5\baselineskip}
 \titleformat{\section}{\normalfont\normalsize\bfseries\singlespacing}{\thesection.}{0.6em}{}
 \titleformat{\subsection}{\normalfont\normalsize\bfseries\singlespacing}{\thesubsection.}{0.6em}{}
@@ -76,6 +77,16 @@
 \newcommand{\thesistitlealt}[1]{\def\wne@titlealt{#1}}     % title in the other language
 \newcommand{\thesisauthor}[1]{\def\wne@author{#1}}
 \newcommand{\albumnumber}[1]{\def\wne@album{#1}}
+\newif\ifwne@pair
+\newcommand{\secondauthor}[2]{\wne@pairtrue\def\wne@secondauthor{#1}\def\wne@secondalbum{#2}}
+\newcommand{\authorcontributions}[2]{\long\def\wne@firstcontributions{#1}%
+  \long\def\wne@secondcontributions{#2}}
+\newcommand{\supervisorcontributions}[1]{\long\def\wne@supervisorcontributions{#1}}
+\def\wne@firstcontributions{}
+\def\wne@secondcontributions{}
+\def\wne@supervisorcontributions{}
+% One entry per article section / supplement chapter, including zero contributions.
+\newcommand{\contribution}[3]{\par\noindent\textbf{#1} (#2\%): #3\par}
 \newcommand{\thesiskind}[1]{\def\wne@kind{#1}}             % e.g. Bachelor's thesis / Praca licencjacka
 \newcommand{\fieldofstudy}[1]{\def\wne@field{#1}}
 \newcommand{\supervisor}[1]{\def\wne@supervisor{#1}}
@@ -126,6 +137,7 @@
 % --- Title page (page 0, number not shown) -----------------------------------
 \newcommand{\maketitlepage}{%
   \begin{titlepage}
+    \setcounter{page}{0}% unique PDF destination; displayed numbering begins after the title
     \singlespacing\centering
     {\large \wne@university\par}
     \vspace{2mm}
@@ -134,6 +146,11 @@
     {\large \wne@author\par}
     \vspace{2mm}
     {\wne@albumlabel: \wne@album\par}
+    \ifwne@pair
+      \vspace{4mm}
+      {\large \wne@secondauthor\par}
+      {\wne@albumlabel: \wne@secondalbum\par}
+    \fi
     \vspace{22mm}
     {\LARGE\bfseries \wne@title\par}
     \vspace{18mm}
@@ -160,6 +177,9 @@
   \makebox[0.5\textwidth][l]{#1\ \dotfill}\par}
 
 \newcommand{\declarations}[1][]{%
+  \ifwne@pair\wne@pairdeclarations{#1}\else\wne@singledeclarations{#1}\fi
+}
+\newcommand{\wne@singledeclarations}[1]{%
   \clearpage
   \begingroup\singlespacing\setlength{\parindent}{0pt}\setlength{\parskip}{0.6\baselineskip}
   \def\wne@mode{#1}\def\wne@articlemode{article}%
@@ -226,6 +246,89 @@
   \endgroup
 }
 
+% A pair has one supervisor declaration and a separate declaration for each student.
+% Contribution descriptions may run over more than one page.
+\newcommand{\wne@pairdeclarations}[1]{%
+  \ifx\wne@firstcontributions\@empty
+    \PackageError{wne-thesis}{Missing first author's chapter contributions}%
+      {Set authorcontributions in metadata.tex for both students.}\fi
+  \ifx\wne@secondcontributions\@empty
+    \PackageError{wne-thesis}{Missing second author's chapter contributions}%
+      {Set authorcontributions in metadata.tex for both students.}\fi
+  \clearpage
+  \begingroup\singlespacing\setlength{\parindent}{0pt}\setlength{\parskip}{0.6\baselineskip}
+  \def\wne@mode{#1}\def\wne@articlemode{article}%
+  \ifwne@polish
+    \def\wne@datelabel{Data}%
+    {\bfseries Oświadczenie kierującego pracą\par}
+    Oświadczam, że niniejsza praca została przygotowana pod moim kierunkiem i stwierdzam, że
+    spełnia ona warunki do przedstawienia jej w postępowaniu o nadanie tytułu zawodowego.
+    \ifx\wne@mode\wne@articlemode
+      Oświadczam, że mój udział w artykule naukowym wynosi \makebox[12mm]{\dotfill}\%
+      (nie więcej niż 20\%), zaś suplement został napisany samodzielnie przez dyplomantów.
+      \par Mój wkład merytoryczny i procentowy w poszczególne części pracy:
+    \fi
+  \else
+    \def\wne@datelabel{Date}%
+    {\bfseries Declaration of the supervisor\par}
+    I declare that this thesis was prepared under my supervision and meets the requirements
+    for submission in the procedure for awarding a professional degree.
+    \ifx\wne@mode\wne@articlemode
+      My share in the scientific article is \makebox[12mm]{\dotfill}\% (at most 20\%).
+      The supplement was written independently by \wne@author{} and \wne@secondauthor.
+      \par My substantive and percentage contributions to each part of the thesis:
+    \fi
+  \fi
+  \ifx\wne@mode\wne@articlemode
+    \ifx\wne@supervisorcontributions\@empty
+      \PackageError{wne-thesis}{Missing supervisor's article contributions}%
+        {Set supervisorcontributions in metadata.tex, including zero shares in the supplement.}%
+    \fi
+    \wne@supervisorcontributions
+  \fi
+  \wne@signature{\ifwne@polish Podpis kierującego pracą\else Supervisor's signature\fi}
+  \wne@pairauthor{\wne@author}{\wne@album}{\wne@firstcontributions}%
+  \wne@pairauthor{\wne@secondauthor}{\wne@secondalbum}{\wne@secondcontributions}%
+  \endgroup
+}
+\newcommand{\wne@pairauthor}[3]{%
+  \clearpage
+  {\bfseries\ifwne@polish Oświadczenie współautora pracy\else Declaration of a co-author\fi\par}
+  #1, \wne@albumlabel: #2\par
+  \ifwne@polish
+    Mając świadomość odpowiedzialności prawnej, oświadczam, że mój wkład w niniejszą pracę został
+    wykonany samodzielnie i nie zawiera treści uzyskanych w sposób niezgodny
+    z obowiązującymi przepisami.
+    \par Oświadczam, że przedstawiona praca nie była wcześniej przedmiotem procedur
+    związanych z uzyskaniem tytułu zawodowego w wyższej uczelni oraz że niniejsza wersja
+    pracy jest identyczna z załączoną wersją elektroniczną.
+    \ifx\wne@mode\wne@articlemode
+      \par Mój udział w artykule naukowym wynosi \makebox[12mm]{\dotfill}\% (nie mniej niż 40\%).
+      Suplement napisaliśmy wspólnie jako współautorzy pracy,
+      bez udziału promotora w autorstwie suplementu.
+    \else
+      \par Mój udział w pracy wynosi 50\%.
+    \fi
+    \par Mój wkład merytoryczny i procentowy w każdy rozdział pracy:
+  \else
+    Aware of my legal responsibility, I declare that I completed my contribution independently
+    and that it contains no content obtained in a manner inconsistent with applicable regulations.
+    \par I declare that this thesis has not previously been the subject of procedures for
+    obtaining a professional degree at a higher education institution, and that this version
+    is identical to the attached electronic version.
+    \ifx\wne@mode\wne@articlemode
+      \par My share in the scientific article is \makebox[12mm]{\dotfill}\% (not less than 40\%).
+      The supplement was written jointly by \wne@author{} and \wne@secondauthor,
+      without the supervisor as a co-author of the supplement.
+    \else
+      \par My share in the thesis is 50\%.
+    \fi
+    \par My substantive and percentage contributions to every chapter of the thesis:
+  \fi
+  #3
+  \wne@signature{\ifwne@polish Podpis współautora\else Co-author's signature\fi}
+}
+
 % --- Declaration on the use of AI systems ------------------------------------
 % \aideclaration{tool}{purpose}   or   \aideclaration{}{}  when no AI tool was used
 \newcommand{\aideclaration}[2]{%
@@ -284,11 +387,29 @@
 \newcommand{\articlecard}{\wne@card{\wne@articlecard}}
 \newcommand{\supplementcard}{\wne@card{\wne@supplementcard}}
 
-% \includearticle{file.pdf}: inserts the journal-formatted article, keeping the thesis page numbers.
+% \includearticle{basename}: PDF plus metadata from the same article build.
+\newcount\wne@articleoffset
+\newcommand{\WNEArticleEntry}[4]{%
+  \addtocontents{#1}{\protect\contentsline{#2}{\unexpanded{\unexpanded{#3}}}%
+    {\number\numexpr\wne@articleoffset+#4\relax}%
+    {page.\number\numexpr\wne@articleoffset+#4\relax}}%
+}
+\newcommand{\WNEArticleCounters}[4]{%
+  \setcounter{table}{#1}\setcounter{figure}{#2}%
+  \setcounter{equation}{#3}\setcounter{footnote}{#4}%
+}
 \newcommand{\includearticle}[1]{%
-  \IfFileExists{#1}{\includepdf[pages=-,pagecommand={\thispagestyle{plain}}]{#1}}{%
-    \begin{center}\itshape Article PDF not found (#1). Run \texttt{make} in the template
-    directory to build it first.\end{center}\clearpage}}
+  \IfFileExists{#1.pdf}{%
+    \IfFileExists{#1.wne}{%
+      \clearpage
+      \wne@articleoffset=\numexpr\value{page}-1\relax
+      \input{#1.wne}%
+      \includepdf[pages=-,pagecommand={\thispagestyle{plain}}]{#1.pdf}%
+    }{\PackageError{wne-thesis}{Article metadata not found: #1.wne}%
+      {Build article-thesis.tex first. On Overleaf upload both its PDF and .wne file.}}%
+  }{\PackageError{wne-thesis}{Article PDF not found: #1.pdf}%
+    {Run make, or compile article-thesis.tex and upload its PDF and .wne file on Overleaf.}}%
+}
 
 % --- Lists at the end (point 15) ---------------------------------------------
 \newcommand{\makelists}{%

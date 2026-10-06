@@ -13,8 +13,8 @@ are binding and may change**; check them before every formal step.
 - [Submitting theses](https://www.wne.uw.edu.pl/student/prace-dyplomowe/skladanie-prac)
 - [Komunikat nr 1/2026: fit between thesis topic and programme](https://www.wne.uw.edu.pl/application/files/7917/7425/4806/2026-03-23_Komunikat_1I2026.pdf)
 - [Komunikat nr 1/2025: topic approval procedure](https://www.wne.uw.edu.pl/application/files/2717/7003/0867/2025-05-20_Komunikat_1I2025.pdf)
-- Resolution no. 7 of the WNE Teaching Council with Załącznik A (review questions), B (formal
-  requirements), C (APD procedure) and D (required layout): linked from the main page above.
+- [Resolution no. 7 of the WNE Teaching Council, consolidated text of 3 November 2025](https://www.wne.uw.edu.pl/download_file/6305/254),
+  with Załącznik A (review questions), B (formal requirements), C (APD procedure) and D (required layout).
 
 ## The seminar and the supervisor
 
@@ -26,8 +26,8 @@ are binding and may change**; check them before every formal step.
 
 ## Requirements for a bachelor's thesis
 
-- A clearly defined research goal; a research hypothesis is optional.
-- Shows the ability to do research using current Polish and international literature.
+- A clearly defined research goal and a research question or hypothesis.
+- Shows the ability to do research using current domestic or international scholarly literature.
 - Research tools consistent with the programme of study, or going beyond it.
 - Either the student's own study or an in-depth, literature-based report. If literature-based, the
   construction and interpretation must be the author's own.

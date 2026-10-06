@@ -10,11 +10,16 @@
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage[hidelinks]{hyperref}
+% Faculty source line, also available in the stand-alone article (10 pt).
+\newcommand{\source}[1]{\par\vspace{0.4\baselineskip}%
+  {\footnotesize\raggedright\textit{Source:} #1\par}}
+\providecommand{\articlebibliography}{references}
 
 \journal{International Journal of Forecasting}
 
 % When built as part of the thesis, the thesis supplies the page numbers.
 \ifdefined\thesisbuild
+  \usepackage{wne-article}
   \makeatletter
   \def\ps@pprintTitle{\let\@oddhead\@empty\let\@evenhead\@empty\let\@oddfoot\@empty\let\@evenfoot\@empty}
   \makeatother
@@ -84,22 +89,27 @@ Table~\ref{tab:example} shows the expected format.
     HAR-RV     & -- & -- \\
     \bottomrule
   \end{tabular}
+  \source{Illustrative layout only; no empirical estimates are reported.}
 \end{table}
 
 \section{Conclusions}
 Main findings, limitations, practical implications, and directions for further research.
 
 \section*{CRediT authorship contribution statement}
+\addcontentsline{toc}{section}{CRediT authorship contribution statement}
 \textbf{First Author:} Conceptualization, Methodology, Software, Writing -- original draft.
 \textbf{Second Author:} Data curation, Validation, Writing -- review and editing.
 
 \section*{Data and code availability}
+\addcontentsline{toc}{section}{Data and code availability}
 Code and instructions to reproduce all results: \url{https://github.com/ORGANISATION/REPOSITORY}.
 
 \section*{Declaration of generative AI in the writing process}
+\addcontentsline{toc}{section}{Declaration of generative AI in the writing process}
 State which tools were used and for what purpose, or that none were used.
 
 \bibliographystyle{elsarticle-harv}
-\bibliography{references}
+\renewcommand{\bibsection}{\section*{\refname}\addcontentsline{toc}{section}{\refname}}
+\bibliography{\articlebibliography}
 
 \end{document}

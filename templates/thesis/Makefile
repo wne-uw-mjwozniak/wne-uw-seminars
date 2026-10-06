@@ -16,11 +16,13 @@ article:
 
 # Same article without its own page numbers, so the thesis can number the pages continuously.
 article-thesis:
-	cd article && $(LATEXMK) -jobname=main-thesis -usepretex='\def\thesisbuild{1}' main.tex
+	$(LATEXMK) article-thesis.tex
 
 thesis: article-thesis
 	$(LATEXMK) main.tex
 
 clean:
 	cd article && latexmk -C main.tex && latexmk -C -jobname=main-thesis main.tex
+	latexmk -C article-thesis.tex
 	latexmk -C main.tex
+	$(RM) article-thesis.wne *.bbl *.spl article/*.bbl article/*.spl

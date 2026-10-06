@@ -6,7 +6,9 @@ All references below were checked against Crossref or the original page in Septe
 ## The first month, concretely
 
 1. Install [Zotero](https://www.zotero.org/) with the [Better BibTeX](https://retorque.re/zotero-better-bibtex/)
-   plug-in, and export your library to `paper/references.bib`.
+   plug-in, and export your library to `paper/references.bib` for the thesis wrapper and supplement.
+   With the article-form template, also export to `paper/article/references.bib` for the article.
+   Keep both exports up to date (or configure automatic exports for both destinations).
 2. Pick one target journal and skim its last two years: titles and abstracts only. Note the five
    papers closest to your interests.
 3. Read three of them to the second pass and one to the third pass (see "How to read a paper").

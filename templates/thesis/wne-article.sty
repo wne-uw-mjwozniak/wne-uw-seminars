@@ -1,0 +1,20 @@
+% Export article headings, captions, page locations and counters for the wrapper.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{wne-article}[2026/10/06 Article metadata for WNE thesis]
+\newwrite\wne@metadata
+\immediate\openout\wne@metadata=\jobname.wne
+\let\wne@originaladdcontentsline\addcontentsline
+\renewcommand{\addcontentsline}[3]{%
+  \wne@originaladdcontentsline{#1}{#2}{#3}%
+  % Deferred write: floats must record the page on which they actually appear.
+  \protected@write\wne@metadata{}{%
+    \string\WNEArticleEntry{#1}{#2}{#3}{\thepage}}%
+}
+\AtEndDocument{%
+  \clearpage
+  \immediate\write\wne@metadata{%
+    \string\WNEArticleCounters{\arabic{table}}{\arabic{figure}}%
+      {\arabic{equation}}{\arabic{footnote}}}%
+  \immediate\closeout\wne@metadata
+}
+\endinput

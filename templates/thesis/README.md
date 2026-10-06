@@ -17,6 +17,7 @@ encourages, with the traditional form available through one switch.
 | `metadata.tex` | Title, author, supervisor, abstract, keywords. Edit this first. |
 | `main.tex` | Thesis wrapper. Chooses the form and the language. |
 | `wne-thesis.sty` | Layout and front-matter macros. You should not need to edit it. |
+| `article-thesis.tex`, `wne-article.sty` | Article entry point and metadata export for the thesis build. |
 | `article/main.tex`, `article/references.bib` | The article. |
 | `supplement/*.tex` | Supplement chapters (article form). Written by the student(s) alone. |
 | `chapters/*.tex` | Chapters (traditional form). |
@@ -31,10 +32,36 @@ make article    # stand-alone article        -> article/main.pdf
 make clean
 ```
 
-`make` first compiles the article without its own page numbers, then inserts it into the thesis so
-that pages are numbered continuously. On Overleaf, compile `article/main.tex` once, download the PDF
-as `article/main-thesis.pdf`, and then compile `main.tex`; or work on the two documents as separate
-Overleaf projects.
+`make` first compiles `article-thesis.tex` without the article's own page numbers. It produces
+`article-thesis.pdf` and `article-thesis.wne` (headings, captions, page locations and counters), then
+builds `main.pdf`. The wrapper imports both: pages are numbered continuously, article headings enter
+the contents, article captions enter the lists, and supplement counters continue after the article.
+Both generated files must come from the same build. Missing either file stops compilation.
+
+### Overleaf
+
+1. Upload the template with its directory structure intact; use pdfLaTeX.
+2. Select the root-level **`article-thesis.tex`** as the main document and compile. This entry point
+   defines the flag that removes the journal page numbers and footer.
+3. Download its PDF as **`article-thesis.pdf`**. Also download the generated **`.wne`** file
+   (usually **`output.wne`** on Overleaf) from **Logs and output files → Other logs and files**
+   and rename it **`article-thesis.wne`**. Upload both to the template root.
+   Do not rename a PDF compiled from `article/main.tex`: it retains the journal page numbers.
+4. Select the root-level **`main.tex`** as the main document and compile the complete thesis.
+5. After every article edit, repeat steps 2–4 and replace **both** generated files. If switching main
+   documents leaves stale output, use **Recompile from scratch**. `make` performs this sequence locally.
+
+See Overleaf's [generated files instructions](https://docs.overleaf.com/navigating-in-the-editor/generated-files)
+for access to compilation outputs.
+
+For a separate article project, copy the contents of `article/` and compile its `main.tex` to obtain
+the stand-alone version. Article and wrapper bibliographies have separate `.bib` files: update both
+exports from your reference manager as needed.
+
+In the article, numbered headings and captions export automatically. After each new starred heading,
+add `\addcontentsline{toc}{section}{Heading text}` (use `subsection` for that level). Keep article
+pages Arabic and consecutive and table/figure numbers consecutive, including appendices, so the
+wrapper can continue their counters. The PDF import does not import article `\label` definitions.
 
 ## Switches in `main.tex`
 
@@ -44,13 +71,36 @@ Overleaf projects.
   `\thesiskind{Praca licencjacka}`.
 - **AI declaration**: `\aideclaration{tool}{purpose}`, or `\aideclaration{}{}` if no AI tool was used.
 
+## Two student authors
+
+In `metadata.tex`, set `\secondauthor{Name}{student number}` and fill in
+`\authorcontributions{first student's entries}{second student's entries}`. Each entry uses
+`\contribution{chapter or section}{percentage}{substantive contribution}`. List every chapter,
+including entries with zero contribution. In article form, also fill in `\supervisorcontributions{...}`
+for each article section and each supplement chapter (the supervisor's supplement shares are zero).
+
+The template produces one supervisor declaration and one separate declaration per student, identifies
+both students on the title page and uses joint authorship wording for the supplement. Each student
+declares an overall article share of **at least 40%**, and the supervisor **at most 20%**. Fill in
+the actual overall shares before signing, ensure they sum to 100%, and ensure each chapter's shares
+also sum to 100%. The supplement belongs entirely to the students. For a traditional thesis,
+each student's overall share is **exactly 50%**; omit the supervisor contribution entries.
+These are declarations of actual work: the template does not infer or validate the percentages.
+
 ## Before you submit
 
-- The Polish declarations are quoted from Załącznik D and the faculty's AI declaration form. The
+- The single-student Polish declarations follow Załącznik D and the faculty's AI declaration form;
+  the two-student wording adapts them to the co-authorship rules. The
   **English wording is an unofficial translation**: confirm the current official forms and title page
   with the Dean's Office, and replace the declarations page with the signed scan (150 dpi, colour)
   in the electronic version.
 - Abstract: at most 800 characters with spaces. Keywords: at most 10 words.
 - Tables and figures: numbered through the whole thesis, each with a caption and a `\source{...}` line.
-- Two student authors: each author signs a separate declaration and states their contribution per
-  chapter. Duplicate the declarations page accordingly.
+- Two student authors: use the dedicated metadata settings above; do not duplicate the single-student page.
+
+## Template regression checks
+
+From the repository root, run `python3 -m unittest discover -s tests -v`. The tests require
+`latexmk`, the template's TeX packages and Poppler's `pdftotext`. They build temporary copies
+and check imported contents/lists and page references, continuous counters, both authorship modes,
+Polish declarations, the Overleaf entry point and failures for missing article files.

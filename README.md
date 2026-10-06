@@ -43,7 +43,8 @@ make template    # builds the example thesis in templates/thesis/
 make clean
 ```
 
-Every push to `main` also builds the slides on GitHub Actions; the PDF is attached to the workflow
+Pushes to `main` that change `slides/**` or the slide workflow build the slides on GitHub Actions;
+pull requests that change `slides/**` and manual runs also build them. The PDF is attached to the workflow
 run as an artifact.
 
 ## Official rules take precedence

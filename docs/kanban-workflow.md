@@ -9,7 +9,10 @@ decisions rather than reporting.
 1. Create your project repository on GitHub (private is fine) and add the supervisor as a collaborator.
 2. In the repository, open **Projects**, create a new project with the **Board** layout, and link it
    to the repository.
-3. Set the `Status` field to these five columns:
+3. In the project's **Settings → Manage access**, invite the supervisor with **Read** access
+   (or **Write** if they will edit cards). A private project's permissions are separate from
+   repository access; adding a repository collaborator alone does not grant project access.
+4. Set the `Status` field to these five columns:
 
    | Column | Meaning |
    | --- | --- |
@@ -19,8 +22,8 @@ decisions rather than reporting.
    | In review | Pull request open, waiting for the supervisor or a teammate. |
    | Done | Merged or otherwise finished. |
 
-4. Turn on the built-in workflows: *item closed* moves a card to Done; *pull request merged* moves it to Done.
-5. Add the first cards: concept note, repository and environment, data acquisition, first baseline,
+5. Turn on the built-in workflows: *item closed* moves a card to Done; *pull request merged* moves it to Done.
+6. Add the first cards: concept note, repository and environment, data acquisition, first baseline,
    thesis outline.
 
 ## Cards
@@ -44,8 +47,10 @@ If a card sits in *In progress* for more than two weeks, it was too big. Split i
 
 1. Move a card from Ready to In progress and create a branch for it.
 2. Commit small and often, with messages that say what changed and why.
-3. Open a pull request that references the issue (`Closes #12`) and move the card to In review.
-4. The supervisor or a teammate reviews. Merging closes the issue and moves the card to Done.
+3. Open a pull request that references the issue (`Closes #12`) and manually move the issue card to In review.
+4. The supervisor or a teammate reviews. Merging into the repository's default branch (usually
+   `main`) closes the referenced issue; the *item closed* workflow then moves its card to Done.
+   Merging into another branch does not automatically close the issue through `Closes #12`.
 
 ## The weekly status
 
