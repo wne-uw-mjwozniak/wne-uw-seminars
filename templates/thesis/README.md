@@ -38,6 +38,34 @@ builds `main.pdf`. The wrapper imports both: pages are numbered continuously, ar
 the contents, article captions enter the lists, and supplement counters continue after the article.
 Both generated files must come from the same build. Missing either file stops compilation.
 
+### Building from an editor and after cleaning
+
+Run `make` in the template directory. If you are working in this seminar repository, the equivalent
+command from the repository root is:
+
+```sh
+make -C templates/thesis
+```
+
+An editor's **Build** button may compile only `main.tex`, without building the article first.
+On a fresh copy or after `make clean`, this causes `Article PDF not found: article-thesis.pdf`
+(or a missing `.wne` metadata error). Use `make` for the complete build, including after changes
+to the article, so its PDF and metadata stay up to date. If your editor supports custom build
+commands, configure it to run `make` with the template directory as its working directory.
+
+If an earlier failed build left `latexmk` reporting an error from a previous invocation, rebuild
+from scratch. Run these commands **in the template directory**:
+
+```sh
+make clean
+make
+```
+
+The clean step removes generated files; the second command rebuilds the article and then the thesis.
+Warnings about missing contents/list files or undefined citations can occur on the first LaTeX pass;
+`latexmk` runs BibTeX and further passes as needed. Check the final build result. A PDF produced
+during a failed build may be incomplete and should not be submitted.
+
 ### Overleaf
 
 1. Upload the template with its directory structure intact; use pdfLaTeX.
