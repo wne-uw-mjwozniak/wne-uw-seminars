@@ -209,17 +209,17 @@ my-thesis/
 \section{Timeline and passing}
 % =============================================================================
 
-\begin{frame}{Indicative timeline}
-  \framesubtitle{Exact submission and defence dates follow the WNE academic calendar}
+\begin{frame}{Timeline: we aim at the June/July 2027 defence round}
+  \framesubtitle{Hard dates from the Dean's Office schedule for 2026/27; the rest is our plan}
   \begin{center}
-  \begin{tikzpicture}[x=1.44cm,
+  \begin{tikzpicture}[x=1.3cm,
       tick/.style={semMuted,line width=0.6pt},
       lab/.style={font=\scriptsize,text=semMuted},
       up/.style={font=\scriptsize,align=center,text width=23mm,anchor=south},
       down/.style={font=\scriptsize,align=center,text width=23mm,anchor=north}]
     \draw[semAccent,line width=1.4pt] (0,0) -- (3.55,0);
-    \draw[semAccent!45,line width=1.4pt] (3.55,0) -- (8.3,0);
-    \foreach \x/\m in {0/Oct,1/Nov,2/Dec,3/Jan,4/Feb,5/Mar,6/Apr,7/May,8/Jun} {
+    \draw[semAccent!45,line width=1.4pt] (3.55,0) -- (9.3,0);
+    \foreach \x/\m in {0/Oct,1/Nov,2/Dec,3/Jan,4/Feb,5/Mar,6/Apr,7/May,8/Jun,9/Jul} {
       \draw[tick] (\x,0.1) -- (\x,-0.1);
       \node[lab,anchor=north] at (\x,-0.12) {\m};
     }
@@ -228,16 +228,19 @@ my-thesis/
     \node[up]   at (2,0.25)   {Data, repo, first baseline};
     \node[down] at (3,-0.62)  {\must{Semester 1 pass}: outline, questions, literature started};
     \node[up]   at (4.5,0.25) {Modelling and experiments};
-    \node[down] at (6,-0.62)  {Full draft; \must{topic submitted for approval}};
-    \node[up]   at (7,0.25)   {Draft read, revisions};
-    \node[down] at (8,-0.62)  {Submission and defence};
+    \node[down] at (5,-0.62)  {Final title agreed};
+    \node[up]   at (6.3,0.25) {\must{Topic submitted} (deadline 27 Apr); full draft to me};
+    \node[down] at (7,-0.62)  {Revisions; \must{thesis submitted 25 May, 14:00}};
+    \node[up]   at (8.5,0.25) {\must{Defences} 23 Jun to 6 Jul};
   \end{tikzpicture}
   \end{center}
 
-  \medskip
+  \smallskip
   \begin{itemize}
-    \item Give me \key{time to read}: a full draft needs weeks, not days, before any deadline.
-    \item The schedule is tight only if modelling starts in spring. Start in December.
+    \item Topic in early April, not on 27 April: the Council votes for two weeks, and a rejected
+          topic must go in again before the deadline.
+    \item Give me \key{time to read}: full draft by the end of April. Start modelling in December.
+    \item Fallback: September round (topic 4 Aug, thesis 1 Sep 14:00, defences 20 to 30 Sep).
   \end{itemize}
 \end{frame}
 
@@ -278,13 +281,14 @@ my-thesis/
     \item I submit it to the Dean's Office during the last semester of the seminar,
           \must{no later than 4 weeks before you plan to submit the thesis}.
     \item The Teaching Council reviews the topic within 14 days. It may request changes,
-          after which the corrected topic is submitted again.
+          after which the corrected topic is submitted again. No reply within two weeks means approved.
     \item \must{A thesis without an approved topic cannot be entered into APD or defended.}
+    \item An approved topic is a working topic: sharpening it is fine, a different problem means
+          a new submission, same deadlines.
   \end{enumerate}
 
-  \bigskip
-  \muted{In practice: we fix the final title early in spring, and we word it so the economic or
-  financial problem is visible in the title itself.}
+  \muted{In practice: we fix the final title by the end of March, and we word it so the economic or
+  financial problem is visible in the title itself. Only I fill in the Dean's Office form.}
   \src{Komunikat nr 1/2025 of the Chair of the WNE Teaching Council, 20 May 2025}
 \end{frame}
 
@@ -371,11 +375,11 @@ my-thesis/
           reviewing the report.
     \item A \key{reviewer} is appointed. Both reviews are uploaded to APD at least 3 days before
           the defence.
-    \item One \key{printed copy}, double-sided, soft-bound, with the AI declaration, delivered no
-          later than 2 days before the exam.
+    \item One \key{printed copy}, double-sided, soft-bound (no plastic sleeve), all declarations
+          signed, delivered no later than 2 days before the exam.
   \end{enumerate}
-  \medskip
-  \muted{For June and September defences the submission deadline is strict to the hour (12:00).}
+  \muted{The Dean's Office rejects a thesis with missing signatures or a wrong title page. June and
+  September deadlines are strict to the hour: 14:00 in 2026/27 (the web page says 12:00).}
   \src{wne.uw.edu.pl \textrightarrow{} Prace dyplomowe \textrightarrow{} Składanie prac; Załącznik C}
 \end{frame}
 
@@ -502,12 +506,13 @@ my-thesis/
 \begin{frame}{How to propose a topic}
   \begin{columns}[T,onlytextwidth]
     \column{0.46\textwidth}
-    \textbf{First message: three things}
+    \textbf{First message: four things}
     \begin{enumerate}
       \item A working title.
       \item Two or three sentences: whose problem is it, what do they want to achieve, what is
             missing today?
       \item Confirmation that \key{the data exists} and you can get it.
+      \item Your name as in USOS, student number and programme (for the Dean's Office form).
     \end{enumerate}
     \medskip
     Your own idea is welcome. So is joining one of the projects on the next slides.
@@ -666,7 +671,8 @@ my-thesis/
     \item Read this deck, the second deck (\emph{From Idea to Article}) and the \texttt{docs/} folder.
     \item Install the toolchain: git, a TeX distribution or Overleaf, \texttt{uv} or \texttt{renv}.
     \item Build the \key{thesis template} from the repository once, to check that your setup works.
-    \item Send your topic proposal: title, two or three sentences, data confirmation.
+    \item Send your topic proposal: title, two or three sentences, data confirmation, your name as
+          in USOS, student number and programme.
           Say whether you want to work alone, in a pair, or join a larger project.
     \item Book your weekly status slot on Google Meet.
   \end{enumerate}

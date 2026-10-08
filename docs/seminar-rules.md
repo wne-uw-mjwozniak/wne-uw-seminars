@@ -59,30 +59,44 @@ In both semesters you need **documented progress** (commits, successive versions
 and **active participation** in consultations and joint discussions. A board with no movement for
 weeks is the main risk signal.
 
-## Indicative timeline
+## Timeline for the June/July 2027 round
+
+The seminar is planned so that everyone submits in the **June/July 2027 round**. The hard dates come
+from the Dean's Office schedule for 2026/27; the milestones before them are the seminar's own.
 
 | When | Milestone |
 | --- | --- |
-| October | Kick-off, topic, team |
+| October 2026 | Kick-off, topic, team |
 | November | Two-page concept note approved |
 | December | Data in place, repository set up, first baseline |
-| January | Semester 1 pass: outline, questions and hypotheses, literature review started |
+| January 2027 | Semester 1 pass: outline, questions and hypotheses, literature review started |
 | February to March | Modelling and experiments |
-| April | Full draft; final title submitted for approval |
+| **by 31 March** | Final title agreed with the supervisor, in a form that will not need changing |
+| **early April** | Supervisor submits the topic to the Dean's Office (hard deadline: **27 April 2027**) |
+| **by 30 April** | Full draft sent to the supervisor |
 | May | Draft read by the supervisor, revisions |
-| June | Submission and defence |
+| **25 May 2027, 14:00** | **Thesis submitted to the Dean's Office** (hard deadline) |
+| 23 June to 6 July 2027 | Defences |
 
-Exact submission and defence dates follow the WNE academic calendar. The thesis topic must reach
-the Dean's Office **at least 4 weeks before you submit the thesis**; see
-[wne-thesis-rules.md](wne-thesis-rules.md). A full draft needs weeks, not days, to be read.
+Why the topic goes in early April: the Teaching Council has two weeks to vote, and if it rejects the
+topic the corrected version has to be submitted again before 27 April. A topic submitted on the last
+day has no second chance. A full draft needs weeks, not days, to be read, and the printed copy must
+be in the Dean's Office two days before the defence.
+
+Fallback: the **September 2027 round** (topic by 4 August, thesis by 1 September 14:00, defences
+20 to 30 September). Use it only if something goes wrong; it eats the summer. All rounds and the
+rules behind them are in [wne-thesis-rules.md](wne-thesis-rules.md).
 
 ## Proposing a topic
 
-First message, three things:
+First message, four things:
 
 1. A working title.
 2. Two or three sentences: whose problem is it, what do they want to achieve, what is missing today?
 3. Confirmation that the data exists and you can get it.
+4. Your first name and surname exactly as in USOS, your student (album) number and your programme
+   of study. The supervisor needs these to submit the topic, and the Dean's Office rejects forms
+   with swapped names or wrong numbers.
 
 Then a **two-page concept note**: the problem; why it matters to an economist or a financial
 decision-maker; research questions and hypotheses; methods and data; planned structure. The concept
